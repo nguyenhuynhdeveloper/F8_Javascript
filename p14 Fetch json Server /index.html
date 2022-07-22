@@ -1,0 +1,175 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <script src="./json_server.js"></script> -->
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- lesson 108  -->
+        <div id="show"></div>
+    <!-- lesson 110 -->
+    <div>
+        <h2>Danh Sách nhân viên </h2>
+    <ul id="list-number">   <!-- Sẽ đẩy dữ liệu từ back end vào trong đây  -->
+        <li></li>
+    
+    </ul>
+    </div>
+
+
+    <!-- tạo dữ liệu ở ngay trên trang web -->
+    <div>
+        <label for="">Name</label>
+        <input type="text" name="name" id="">
+    </div>
+ 
+    <div>
+        <label id="test" for="">Description</label>
+        <input type="text" name="description" id="">
+    </div>
+    <div>
+        <button id="create" > Create </button>
+       
+    </div>
+
+    <script>
+        var listNumberAPI = 'http://localhost:3000/number';
+
+
+
+
+function renderNumber (numbers){  // RenderNumber này có đối số là dữ liệu mà đã được parse về dạng dữ liệu JavaScript Style
+        var listNumberBlock = document.querySelector('#list-number')
+        var htmls = numbers.map(function(number){   // numbers ở đây chính là kết quả của thằng then đầu tiên ,đã có kết qủa là dạng dữ liệu kiểu javaSCript Style
+                                                    // number ở đây là của hàm map chính là từng phần tử được lặp       
+        return `
+        <li class="number-item-${number.id}">
+        <h2>${number.name}</h2>
+        <h2>${number.description}</h2>
+        <button onclick="deleteNumber(${number.id})"> Xoá </button>
+        <button onclick="updateNumber(${number.id})"> Update </button>
+        </li>
+        `
+
+    })
+    listNumberBlock.innerHTML = htmls;
+    }
+
+
+    function getNumber(callback) {    // Đây là 1 hàm lấy giá trị tử backend đẩy lên giao diện
+
+        fetch(listNumberAPI)
+        .then(function(response){
+            return response.json()
+        })
+        .then(callback)    // hàm callback hiện tại ở chỗ này chưa được tạo và chưa có . sẽ tạo ở trong funnction start
+        }
+
+
+    function createNumber(data, callback){   // callback ở đây sẽ là vừa lấy data vừa render ra giao diện 
+        var options = {  
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+        }
+           
+        fetch(listNumberAPI,options)
+        .then(function(response){
+            return response.json();
+        })
+        .then(callback)
+    }
+
+
+function deleteNumber(id){
+    var options = {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Content-Type': 'application/json'
+    }
+    }
+    fetch(listNumberAPI + '/'+ id,options)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(){
+       var deleteItem = document.querySelector('.number-item-' + id)
+       if(deleteItem){
+
+           deleteItem.remove();
+       }
+    })
+}
+
+
+
+function handleCreateForm (){
+        var createBtn = document.querySelector("#create")
+        createBtn.onclick =function(){
+         var name = document.querySelector('input[name="name"]').value
+         var description = document.querySelector('input[name="description"]').value
+
+         var dataForm ={
+             name : name,
+             description: description
+         }
+         createNumber(dataForm,function(){
+            getNumber(renderNumber)   //Lấy dữ liệu xong render ra luôn
+         })
+        }
+    }
+
+
+    function updateNumber(id,data){
+        var options = {
+    method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  }
+
+    fetch(listNumberAPI + '/'+ id,options)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(){
+        var name = document.querySelector('input[name="name"]').value
+         var description = document.querySelector('input[name="description"]').value
+
+        
+         var dataForm ={
+             name : name,
+             description: description
+         }
+         deleteNumber(id)
+         createNumber(dataForm,function(){
+            getNumber(renderNumber) 
+         })
+        })
+    }
+     
+    function start(){
+    getNumber(renderNumber) ;  //renderNumber chính là callback của hàm then thứ 2
+    handleCreateForm();
+
+    }
+
+    start();
+
+   
+    </script>
+    </body>
+
+    </html>

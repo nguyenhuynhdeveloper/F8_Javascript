@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "json server"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "p14 Fetch json Server "
+	}
+}

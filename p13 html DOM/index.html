@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="dom.js"></script>
+
+    <title>Document</title>
+</head>
+<br>
+    <h1>H1</h1>
+<h2>elementNode</h2>
+
+<div class="box box-2">Demo classList</div>
+ <div id="idName">id</div>
+  <div class="className">className</div>
+<div id="idName2">Id</div>
+<div class="className2">className</div>
+
+
+    <div id="idName2">html </div>
+<form action="" id="formOne"></form>
+<form action="" id="form2"></form>
+<form action="" id="form3"></form>
+
+<a href="" name="nameName">html </a>
+
+<div class="box-1">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</div>
+<div class="box-2">
+    <ul>
+        <li>1.1</li>
+        <li>1.2</li>
+        <li>1.3</li>
+    </ul>
+</div>
+
+    <script>
+var getId = document.getElementById('idName') ; //Bắt  element có id là heading
+console.log(getId)
+
+var getClassName = document.getElementsByClassName('className');  // elements phải có s bởi vì là số nhiều 
+console.log(getClassName)
+
+var getTagName = document.getElementsByTagName('h1'); 
+console.log(getTagName)
+
+var querySelector = document.querySelector('#idName2');   //Bắt qua cách của CSS Selector 
+console.log(querySelector)
+
+var querySelector1 = document.querySelector('.className2');   //Bắt qua cách của CSS Selector 
+console.log(querySelector1);
+
+console.log(document.forms.formOne);   // Lấy thẻ form.idNameOfForm
+
+
+// Với các thẻ Form thì sẽ quy về html colection : là k cần phải get qua id . class, tag ...
+console.log(document.forms)    // Trả về 1 mảng tất cả các tag form 
+
+console.log(document.anchors)  // Lấy ra được tất cả các thẻ a mà được đặt name -- Trả về mảng
+  // lesson 85 
+var boxNode= document.querySelector('.box-1');
+console.log(boxNode)
+var liNode= boxNode.querySelectorAll('li');   // Hoàn toàn có thể đứng từ element và tìm con của nó 
+console.log(boxNode.getElementsByTagName('li'))
+console.log(liNode)
+ 
+// lesson 86 Get element method-3 
+/*
+1. getElementById()
+2. getElementsByClassName()
+3. getElementByTagName()
+
+4. querySelector()
+5. querySelectorAll()
+*/
+
+// lesson 87 attribute node & text node
+// attribute Node là thuộc tính mà nằm trong thẻ mở của tag -- là 1 nhánh của element đi ra
+// text Node là chứ ghi vào trong thẻ tag
+
+// lesson 88 : DOM attribute 
+var domAttribute = document.querySelector('h1');
+
+domAttribute.title ='Heading- 1';   // Gán  thuộc tính mới vào tag đã được bắt
+domAttribute.id ='idHeading';   
+domAttribute.className ='classHeading';    // Duy có thuộc tính class là từ khoá là className
+console.log(domAttribute.className)     // Có thể lấy giá trị thuộc tính của element đã được bắt 
+
+
+
+var domAttributeTaga = document.querySelector('a');
+domAttributeTaga.href ='href Of a'          // Tất cả trên là cách gán seter
+
+domAttribute.setAttribute('class-1', 'heading')   // Có thể set Attribute cho 1 element mà không cần đúng thuộc tính , tự mình tuỳ ý đặt
+domAttribute.getAttribute('class-1')   //Cũng có thể lấy ra giá trị của attribute dựa vào getAttribute 
+
+
+//lesson 89 : innerText vs textContent Property  : 2 thuộc tính là của elementNode
+
+var domText = document.querySelector('h1');
+
+console.log(domText.innerText)   // lấy nội dung text Node giống như được hiển thị trên trang web 
+console.log(domText.textContent)  // Lấy nguyên bản textNode có thể lấy ra được ở nguồn code HTML chỉ bỏ qua <tag>
+
+domText.innerText = 'Đây là 1 nội dung được gán từ innerText '  // Có thể gán luôn từ innerText -- Xuống dòng tự đẩy thêm thẻ </br> vào trong html
+
+domText.textContent = 'Đây là 1 nội dung được gán từ textContent '   
+
+domText.innerText ='<span> Không hiểu là tag html </span>'    // Cả 2 đều không hiểu nó là thẻ tag html --> mà chỉ hiểu là text mà thôi 
+domText.textContent ='<span> Không hiểu là tag html </span>'
+
+// geter  : là lấy ra 
+// seter : là set vào 
+
+
+
+// lesson 90 : innerHTML vs outerHTML property   -- Thêm 1 element vào 1 element -- Đây là 2 thuộc tính của elementNode
+
+var elementNode = document.querySelector('h2')
+
+console.log(elementNode);
+
+//innerHTML 
+elementNode.innerHTML = '<h2 title="heading"> Đây là thẻ h2 được thêm bởi innerHTML</h2>' // Khi được seter bởi innerHTMl nó sẽ tự hiểu là tag HTML 
+                      // Có thể thêm được elementNode và attributeNode  và textNode vào trong 1 element dã được bắt 
+
+console.log(elementNode.innerHTML);   // Có thể get ra nội dung đã được thêm bởi innerHTML  --> Dùng để hiển thị lăn chuột tới đâu là hiển thị tới đó 
+                                      // Chỉ có thể lấy ra nội dung nằm trong tag được bắt , k tính cái vỏ  
+//outerHTML
+elementNode.outerHTML = '<div> Outer sẽ ghi đè hết nội dung bao gồm cả cái vỏ đã được bắt  </div>'   // Ghi đè hết nội dung kể cả cái vỏ
+console.log(elementNode.outerHTML);   // Get ra nội dung của tất cả thẻ nằm trong -Kể cả cái vỏ --> Thực tế Ít khi dùng outerHTML
+
+
+
+//lesson 91 : Node Properties : 
+//Thường tương tác với elementNode -> attributeNode -> textNode
+// Để có thể tìm hiểu tất cả các thuộc tính của nó có thể gán nó vào 1 mảng rồi console.log ra để. biết các thuộc tính nó có
+console.log([elementNode]);
+
+// lesson 92 : dom style : thuộc tính nằm trong elementNode
+var elementBox = document.querySelector('.box')
+
+console.log(elementBox.style);  
+// Hiện ra 1 bảng thuộc tính nhưng cách viết khác khi viết CSS 
+// background-color --> backgroundColor :: Đây là cách viết camelCase
+
+elementBox.style.width= '100px';
+elementBox.style.height = ' 200px';
+elementBox.style.backgroundColor = 'red'
+
+// bản thân Style là 1 object
+ Object.assign(elementBox.style, {
+width: '200px',
+height: '100px',
+backgroundColor  : 'yellow'
+ })   // assign là 1 phương thức gán - sẽ sinh ra CSS inline --> Mục đích chính của nó khi nào cần CSS riêng biệt chứ k để chuyên đi css 
+
+
+console.log(elementBox.style.backgroundColor);   //Lấy ra thuộc tính CSS inline của đối tượng bị bắt 
+</script>
+
+
+
+<!--  lesson 93: classlist Property : Thuộc tính của elementNode
+ add  : Thêm 1 class 
+ remote : Xoá class
+ contains : Kiểm tra xem có class đó chưa
+toggle : Xoá bỏ class đó nếu có rồi . không có thì thêm vào  -->
+ 
+<style>
+    .red {
+        color :red;
+    }
+
+    .font-size {
+        font-size: 40px;
+    }
+</style>
+
+<script>
+
+var elementBox = document.querySelector('.box')
+
+console.log(elementBox.classList)  // Lấy ra được tất cả các thuộc tính đang có của DOM classList 
+console.log(elementBox.classList.length) ;  //Lấy ra số lượng class mà đang có của đối tượng bi bắt 
+console.log(elementBox.classList[1])
+console.log(elementBox.classList[2])    //Lấy ra theo chi mục 
+console.log(elementBox.classList.value) ;  // Lấy ra tên classList chính cái chuỗi đầy đủ dấu cách viết trong attribute class
+
+elementBox.classList.add('red' , 'font-size')   // Thêm 1 hay nhiều class
+
+console.log(elementBox.classList.contains('red' , 'font-size')) // Kết quả trả về là boolean -- Xem class đó có tồn tại trong đối tượng hay không
+
+setTimeout(() => {   // Sét thời gian sau 3 s mới xoá đi class
+
+    elementBox.classList.remove('red');  // Xoá 1 class của đối tượng bị bắt 
+}, 3000); 
+
+
+// toggle Ứng dụng trong việc đóng mở menu trượt trái trượt phái : Bấm 1 cái là mở -Bấm 1 cái là đóng 
+setTimeout(() => {   // Sét thời gian sau 3 s mới xoá đi class
+
+elementBox.classList.toggle('font-size');  // Có thì xoá- Không có thì thêm 
+}, 3000); 
+
+// Làm chữ nhấp nháy sau 1 thời gian nhất định 
+
+setInterval (() => {  // Set thời gian cứ 1 s là chạy hàm bên trong
+    elementBox.classList.toggle('red');
+},1000);  
+
+   </script>
+
+
+<!-- lesson 94 : DOM events : Thực hiện các hành vi lên Website :  Có thể dùng JS để lắng nghe sự kiện đó - bắt sự kiện đó ra- tạo kịch bản cho sự event đó 
+  1. Attribute events    : Sử dụng attribute để lắng nghe event người dùng 
+  2. Assign event using the element node : Gán Event vào đối tượng bị bắt thì sẽ thực thi , nếu event đó xảy ra
+
+ -->
+<h2 class="assign"> Gán Event cho elementNode đã được bắt </h2>
+
+<h2 onclick="console.log(Math.random())">Lesson 94. Onclick </h2>  <!-- Khi click vào thẻ h2 đoạn mã bên trong sẽ được chạy -->
+<h2 onmouseover="console.log(Math.random())">Lesson 94. onmouseover </h2>  <!-- Bắt đầu chuột di chuyển lên nó là nó thực hiện  -->
+<h2 onmouseout="console.log(Math.random())">Lesson 94. onmouseout </h2>  <!-- Bắt đầu chuột di chuyển ra khỏi nó là nó thực hiện  -->
+ 
+ <h2 onclick="console.log(this)"> Demo :This </h2>  <!-- Trả lại chính elementNode của thằng h2 này   this = getElementById ()..... all-->
+ <h2 onclick="console.log(this.innerText)"> Demo :This innerText để lấy ra text </h2>    <!-- onclick  vào thì mới lấy ra -->
+  
+ <div class="l94">Quét sự kiện</div>
+  <div class="l94">Quét sự kiện</div>
+  <div class="l94">Quét sự kiện</div>
+
+ <script>
+var assignEvent = document.querySelector('.assign')
+
+ assignEvent.onclick = function(){   // Hàm sẽ chạy khi được click vào element đã được bắt
+    console.log('Bạn đã click')
+ };
+
+ var assignEventl94 = document.querySelectorAll('.l94')
+ console.log(assignEventl94);   // Kiểm tra xem đã bắt ra được chưa
+ 
+ for ( var i =0 ; i<  assignEventl94.length ; i++ ){
+         assignEventl94[i].onclick= function(e) {
+         console.log(e.target);   // Lấy ra đích thị elementNode nào đang được bắt và được onclick
+         console.log(assignEventl94[i])   // Cách lấy giá trị này không được vì vòng for đã chạy xong rồi đang có giá trị là 3
+     }
+ }
+console.log(i);     // i này phải khai báo biến var . khai báo let là không được
+
+
+ </script>
+
+ <!-- lesson 95 : DOM events example : Ví dụ khi thao tác với dom event làm sao để lấy giá trị của Form  -->
+<form action="">
+
+    <input type="text" name="" id="idInputText">
+   <input type="checkbox" name="" id=""> 
+   <input type="radio" name="" id="">    <!-- Chỉ nhấn được 1 lần là giữ nguyên giá trị Không cho đổi  -->
+
+    <select name="" id="">
+        <option value="value-1">Khoá học 1</option>
+        <option value="value-2">KHoá học 2</option>
+        <option value="value-3">Khoá học 3</option>
+    </select>
+</form>
+
+<script>
+// input[type="text"]
+var inputElement = document.querySelector('input[type="text"]');
+ console.log(inputElement);
+
+ // Chỉ chạy hàm khi con chuột thoát focus tại ô input , blur ra bên ngoài 
+inputElement.onchange = function(mouseEvent) {   // Chỉ chạy hàm khi con chuột thoát focus tại ô input , blur ra bên ngoài 
+    // console.log(mouseEvent.target.value)  // mouseEvent.target : chính là lấy ra elementNode của thẻ đang được onchange 
+}
+// Gõ đến đâu lấy ra đến đó
+var inputValue  // Biến sẽ nhận giá trị của ô input khi được nhập
+inputElement.oninput = function(mouseEvent) {    // Or oninput
+    // console.log(mouseEvent.target.value)  
+    inputValue = mouseEvent.target.value;   // Gán giá trị vừa nhập vào 1 biến toàn cục
+}
+  //=> LẤY DỮ LIỆU THƯỜNG SỬ DỤNG   onchange or oninput  
+inputElement.onkeydown = function(mouseEvent) {    // Khi nhấn phím xuống lần đầu chưa in . ấn lần 2 mới bắt đầu in --> Sẽ bị châm đi 1 cái 
+    // console.log(mouseEvent.target.value)  
+}
+
+inputElement.onkeyup = function(mouseEvent) {    
+    // console.log(mouseEvent.target.value)     // Ấn 1 cái nhấc chuột lên là nhận 
+    console.log(mouseEvent.which)        // Hiện ra bạn vừa bấm vào phím nào 
+// Ví dụ đóng mở pop up bằng esc và enter để chọn ok
+switch (mouseEvent.which){
+    case 27: 
+            console.log('Bạn vừa lựa chọn Exit')
+}
+
+// CÁCH KHÁC LẮNG NGHE NGAY Ở document
+document.onkeydown = function(e){ //Bắt được sự kiện ở toàn bộ document  
+    switch (e.which){
+        case 27:    
+                console.log('Bạn vừa lựa chọn thoát khỏi');
+                break;
+        case 13:    
+        console.log('Bạn vừa bấm enter để gửi tin nhắn');
+        break;        
+    }
+
+}
+
+}
+
+// onkeypress :: nhấn xuống là chạy , nhấn rồi giữ im là cũng chạy vù vù :: Đặc biệt nhấn giữ phím esc thì sẽ k nhận 
+
+//=> THƯỜNG SỬ DỤNG keyboardEvent  
+
+
+//input[type="checkbox"]
+var inputElementCheckBox = document.querySelector('input[type="checkbox"]');
+ console.log(inputElementCheckBox);
+ inputElementCheckBox.onchange = function(mouseEvent) {   
+    console.log(mouseEvent.target.checked)   // Thuộc tính checked Kết quả True/false
+ }
+
+
+ //select
+ var inputElementSelect  = document.querySelector('select');
+ console.log(inputElementSelect);
+ inputElementSelect.onchange = function(mouseEvent) {   
+    console.log(mouseEvent.target.value)   // Lấy giá trị đã chọn của select nhưng là value ở trong Attribute của option chứ k phải phần html  description 
+ }
+
+</script>
+
+<!-- lesson 96 DOM events
+1. preventDefault  //Loại bỏ hành vi mặc định của trình duyệt trên 1 thẻ HTML 
+2. stopPropagation   // Loại bỏ sự kiện nổi bọt , tức bấm th con th cha cũng nhận 
+/ /Bài toán đặt ra : chỉ href có f8.edu.vn thì mới chuyển link 
+-->
+<a name= "aName" href="https://f8.edu.vn ">
+    Học lập trình
+</a>
+</br>
+<a  name= "aName" href="https://google.com.vn">
+    Tìm kiếm 
+</a>
+
+
+
+<input type="text" class="search"    placeholder="Tìm Kiếm ">
+<ul class="ulSearch ">
+    <li>JavaScript</li>
+    <li>React Native</li>
+    <li>Backend</li>
+</ul>
+
+<style>
+    .ulSearch {
+        display: none;
+        color: red;
+    }
+    input:focus ~ .ulSearch {   /*Khi ô input được focus thì class có ulSearch sẽ được nhận CSS đó */
+        display: block ;
+    }
+</style>
+<script>
+
+    var aElement = document.anchors //Lấy thẻ a có name
+    // var aElement = document.links    // Cách 2 lấy tất cả thẻ a có link 
+    console.log(aElement);
+for (var i=0 ; i< aElement.length ; ++i){
+
+    aElement[i].onclick=function(e){
+        if (!e.target.href.startsWith('https://f8.edu.vn')){ // Kiểm tra xem link đó có bắt đầu từ 
+            
+            e.preventDefault();    // Loại bỏ cấu hình mặc định nếu href đó k có phải f8 
+        }   
+          
+        
+    }
+}
+// Bài toán 2: Khi ấn vào ô input thì ns mới hiện ra dãy gợi ý li . và khi ấn vào gợi ý thì gợi ý đó k bị mất đi 
+var ulElement =document.querySelector('.ulSearch');
+
+ulElement.onmousedown = function(e) {   //Khi bị mất focus từ ô input thì ngay lập tức thẻ ul sẽ bị ẩn theo thuộc tính CSS --> Cần ngăn chặn ngay hành vi mặc định 
+    e.preventDefault();      // Chỉ khi ấn vào ul đó thì nó mới k mất đi . blur đi nơi khác nó vẫn mất
+
+}
+
+ulElement.onclick= function(e){
+    console.log(e.target);
+}
+</script>
+
+<!-- stopPropagation : Dừng lại sự kiện nổi bọt  -->
+<div  onclick="console.log('div')">
+    div cha
+    <button  id="l96" onclick= ""> Click me </button>
+</div>
+
+<script>
+var btn = document.querySelector('#l96').onclick = function(e) {
+    e.stopPropagation();     // Ngăn sự kiện nổi bọt khi onchick vào btn
+    console.log('Click me')
+}
+</script>
+
+<!-- lesson 97 :
+1. Event listener : 1 phương pháp khác để lắng nghe event ở trong DOM nó xảy ra công dụng ngang bằng DOM event
+2. JSON
+3.Fetch
+4. DOM location
+5. Local storage
+6. Session storage
+7. Coding convention 
+8. Best practices
+9. Mistakes
+10. Performance
+
+// 1. Xử lí nhiều việc khi 1 event xảy ra
+// 2. Lắng nghe / Huỷ bỏ lắng nghe
+-->
+
+<button id="l97"> Click me l97</button>
+<script>
+    var btn = document.querySelector('#l97')
+
+    btn.addEventListener('click' , function(){   // Nhận 2 đối số: đối số 1 :EventName ; đối số 2: callback khi sự kiện dược thực hiện 
+        console.log('Bạn đã addEventListener ')
+    });
+    btn.addEventListener('click' , function(){   //   addEventListener có thể lắng nghe nhiều lần --> có thể thực hiện dược nhiều công việc
+        console.log('Bạn đã addEventListener ')
+    });
+    btn.addEventListener('click' ,work1);    
+
+    function work1 (){
+        console.log('Việc làm số 1')
+    }
+setTimeout(function(){          // Sau 3s sẽ loại bỏ chuyện lắng nghe click bào btn 
+btn.removeEventListener('click', work1); 
+},3000)
+
+// ==> DOM event chỉ dành cho những sự kiện rất là đơn giản -- Mà không cần xoá thì dùng 
+// EventListener dùng cho các sự kiện lắng nghe phức tạp -- Dùng rất nhiều trong các trườgn hợp thực tế
+
+</script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music player</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" >
+<link rel="stylesheet" href="./assets/css/style.css">
+
+<div class="player">
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <!-- Header -->
+    <header>
+      <h2></h2>
+      <h4></h4>
+    </header>
+
+    <!-- CD -->
+    <div class="cd">
+      <div class="cd-thumb" style="background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg')">
+      </div>
+    </div>
+
+    <!-- Control -->
+    <div class="control">
+      <div class="btn btn-repeat">
+        <i class="fas fa-redo"></i>
+      </div>
+      <div class="btn btn-prev">
+        <i class="fas fa-step-backward"></i>
+      </div>
+      <div class="btn btn-toggle-play">
+        <i class="fas fa-pause icon-pause"></i>
+        <i class="fas fa-play icon-play"></i>
+      </div>
+      <div class="btn btn-next">
+        <i class="fas fa-step-forward"></i>
+      </div>
+      <div class="btn btn-random">
+        <i class="fas fa-random"></i>
+      </div>
+    </div>
+
+    <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">   <!-- Thanh chạy hiển thị thời gian , loại  input type="range" -->
+
+    <audio id="audio" src=""></audio>         <!-- audio chính là thẻ tag dành cho audio: trình nghe phát nhạc -->
+  </div>
+
+  <!-- Playlist -->
+  <div class="playlist">
+  </div>
+
+  <script src="./script.js"></script>
+
+  <script>
+/**
+ * 1. Render songs
+ * 2. Scroll top
+ * 3. Play / pause / seek 
+ * 4. CD rotate
+ * 5. Next /prev
+ * 6. Random 
+ * 7. Next / Repeat when Ended
+ * 8. Active song
+ * 9. Scroll active song into view
+ * 10. Play song when click 
+ * 11. Save config user  : Giữ lại tuỳ biến người dùng
+ * 
+ */ 
+const $ =document.querySelector.bind(document)
+const $$=  document.querySelectorAll.bind(document)
+
+const PLAYERS_STORAGE_KEY = 'NGUYEN_HUYNH'
+
+    const player = $('.player')
+    const playlist = $('.playlist')
+    const heading= $('header h2')
+    const cdThumb= $('.cd-thumb')
+    const audio= $('#audio')
+    const cd = $('.cd')
+    const playBtn = $('.btn-toggle-play')
+    const progress = $('#progress')
+    const nextBtn = $('.btn-next')
+    const prevBtn = $('.btn-prev')
+    const randomBtn = $('.btn-random')
+    const repeatBtn = $('.btn-repeat')
+    const singerName = $('header h4')
+    const songName = $('header h2')
+
+
+const app ={
+    currentIndex : 2,   // Chỉ mục của bài hát hiện tại đang phát
+    isPlaying: false,
+    isRandom: false,
+    isRepeat: false,
+    config:JSON.parse(localStorage.getItem(PLAYERS_STORAGE_KEY)) || {},   // Lưa tuỳ biến người dùng vào mục lưu local get là lấy : Khi lấy về phải chuyển định dạng nó về JS types
+    songs : [
+    {
+        name: 'Ngước mắt nhìn đời',
+        singer: 'Phú Lê',
+        path: './assets/music/NguocMatNhinDoi.mp3',
+        image: './assets/img/nguocMatNhinDoi.jpeg'
+    },   
+    {
+        name: 'Đời là thế thôi ',
+        singer: 'Phú Lê',
+        path: './assets/music/DoiLaTheThoi-MinhTuan.mp3',
+        image: './assets/img/doiLaTheThoi.jpeg'
+    },
+  
+    {
+        name: 'Chào Em Cô Gái Lam Hồng',
+        singer: 'Trung Đức',
+        path: './assets/music/ChaoEmCoGaiLamHong.mp3',
+        image: './assets/img/chaoEmCoGaiLamHong.jpeg'
+    },
+    {
+        name: 'Chị Tôi ',
+        singer: 'Trần Tiến ',
+        path: './assets/music/ChiToi.mp3',
+        image: './assets/img/chiToi.jpeg'
+    },
+    {
+        name: 'Cung đàn tình yêu ',
+        singer: 'Đan Trường',
+        path: './assets/music/Cungdantinhyeu-DanTruong.mp3',
+        image: './assets/img/cungDanTinhYeuDanTruong.jpeg'
+    },
+    {
+        name: 'Hành khúc ngày và đêm ',
+        singer: 'Anh Thơ',
+        path: './assets/music/HanhKhucNgayVaDem.mp3',
+        image: './assets/img/hanhKhucNgayVaDem.jpeg'
+    },
+    {
+        name: 'Hát mãi khúc quân hành',
+        singer: 'Tốp ca',
+        path: './assets/music/HatMaiKhucQuanHanh.mp3',
+        image: './assets/img/hatMaiKhucQuanHanh.jpeg'
+    },
+    {
+        name: 'Nỗi buồn mẹ tôi ',
+        singer: 'Hoài Lâm',
+        path: './assets/music/NoiBuonMeToi.mp3',
+        image: './assets/img/NoiBuonMetoi.jpeg'
+    },
+    {
+        name: 'Thương về miền trung',
+        singer: 'Trịnh Đình Quang',
+        path: './assets/music/ThuongVeMienTrungLive-TrinhDinhQuang.mp3',
+        image: './assets/img/ThuongVeMienTrung.jpeg'
+    },
+    {
+        name: 'Tình Cha',
+        singer: 'Ngọc Sơn',
+        path: './assets/music/TinhCha.mp3',
+        image: './assets/img/TinhCha.jpeg'
+    },
+    {
+        name: 'Trường sơn đông Trường sơn tây',
+        singer: 'Trung Đức',
+        path: './assets/music/TruongSonDongTruongSonTay.mp3',
+        image: './assets/img/truongSonDongTruongSonTay.jpeg'
+    },
+],
+    
+    setConfig: function(key,value){
+      this.config[key] = value;
+      localStorage.setItem(PLAYERS_STORAGE_KEY,JSON.stringify(this.config) )   // Lưu vào thì phải mã hoá nó sang dạng JSON
+
+    },
+
+    render : function() {
+        const htmls =this.songs.map((song, index) =>{
+          return `
+      <div class="song ${index === this.currentIndex ? 'active': ''}"  data-index="${index}">
+      <div class="thumb" style="background-image: url('${song.image}')">
+      </div>
+      <div class="body">
+        <h3 class="title">${song.name}</h3>
+        <p class="author">${song.singer}</p>
+      </div>
+      <div class="option">
+        <i class="fas fa-ellipsis-h"></i>
+      </div>
+    </div>
+          ` 
+        })
+
+        $('.playlist').innerHTML =htmls.join('');
+    } ,
+  
+    defineProperties: function(){   // Tất cả các định nghĩa cho object này sẽ đưa vào đây :: Đặt dạng số nhiều để định nghĩa nhều thứ bên trong 
+        Object.defineProperty(this,'currentSong',{
+            get: function(){
+                return this.songs[this.currentIndex]
+            }
+        })  // Định nghĩa 1 thuộc tính cho object  . với cú pháp defineProperty() :: geter đặc tính của object thì k cần phải mở ngoặc là hàm   
+      },
+
+      // curentSong: function(){
+      //   return app.songs[app.currentIndex]
+      // },
+    
+      // Method Xử lý tất cả các sự kiện ở trong App ==> Trong đây sẽ không phải là  thuộc tính hay phương thức của object app mà trong đây chỉ bắt đối tượng và gán sự kiện cho nó 
+    handleEvents: function(){ 
+      const _this = this  // This chỉ được gọi ở trong cùng 1 cấp
+
+        // Xử lý CD rotate và Stop 
+        const cdThumbAnimate = cdThumb.animate(                 // Cách tạo 1 key frame cho 1 DOM element
+          {transform: 'rotate(360deg)'}
+        ,{
+          duration: 10000, // 10 seconds thời gian thực hiện trong suốt 10 s
+          iterations: Infinity   // Số lần lặp lại là không giới hạn 
+        })
+        cdThumbAnimate.pause()  // Nhận về 1 animate . quay cái cho dừng luôn 
+
+
+
+        //Xử lý phóng to / thu nhỏ CD
+        // const cd = $('.cd')   // Đặt ra ngoài xảy ra tình trạng chập chờn lúc bắt được lúc không
+        const cdWidth = cd.offsetHeight;   // offsetHeight ở đây chính là giá trị hiện tại của đối tượng đã bắt 
+        document.onscroll = function(){   // document.onscroll : chính là bắt tất cả sự kiện lăn chuột ở trên DOM
+            const scrollTop = window.scrollY || document.documentElement.scrollTop  // Trả lại thông số  lăn chuột của trục y , bằng 2 cách ||
+            const newCdWidth = cdWidth - scrollTop   // Lấy chiều cao hiện tại trừ đi khoảng cách đã lăn theo chiều dọc
+            
+            const spaceWidth = newCdWidth >0 ? newCdWidth : 1;
+
+            cd.style.width = newCdWidth >0 ? newCdWidth + 'px':0;  // Toán tử rẽ ngôi : vì khi mà vuốt nhanh qua sẽ có khả năng số về âm 
+            cd.style.opacity = spaceWidth / cdWidth       // Độ ờ = khoảng cách đã lăn / chiều cao 100% ban đầu 
+        }
+
+        //Xử lý khi click play 
+        playBtn.onclick = function(){
+        const playBtn = $('.btn-toggle-play')
+            // Đang để chế độ mặc định là false .khi có sự kiện bấm vào nút play thì sẽ lọt vào hàm này . và sẽ cho chạy audio luôn vì nó trui vào hàm else của sau khi đã thực sự chạy hay dừng audio sẽ được lắng nghe ở 2 cú pháp bên dưới
+            if (_this.isPlaying){        
+                audio.pause()
+            }
+            else{
+                audio.play()   // Khi điều đó thực sử xảy ra chúng ta mới làm 
+            }
+          }
+
+          //Xử lý trạng thái để 2 method dưới tự lắng nghe
+          //Khi song được play Khi nó thực sự chạy rồi mới đổi các điều kiện bên trong
+          audio.onplay =function(){   // Trong DOM audio có method để lắng nghe việc bài hát thưc sự được play 
+              _this.isPlaying= true
+              player.classList.add('playing')
+              cdThumbAnimate.play()
+              console.log('Bài hát đang được thực sự chạy ')
+          }
+
+          //Khi song bị pause
+          audio.onpause =function(){   // Trong DOM audio có method để lắng nghe việc bài hát thưc sự được play 
+              _this.isPlaying= false
+              player.classList.remove('playing')
+              cdThumbAnimate.pause()
+
+          }
+        // Xử lý hiển thị thời gian khi thời lượng bài hát thay đổi 
+        audio.ontimeupdate = function(){  // Đây chính là bắt ra sự kiện thời gian ontime thực tế của bài hát được thay đổi thì sẽ cho chạy hàm function()
+            if( audio.duration){   // Trong suốt audio chạy . hay trong suốt thời gian audio chạy 
+                const progressPercent = Math.floor(audio.currentTime / audio.duration *100)   // currentTime là thời gian hiện tại của bài hát . duration : Là tổng thời gian của bài hát
+                progress.value = progressPercent  // Gán cái giá trị phần trăm thời lượng bài hát đã chạy vào vị trí của thanh chạy time             
+              }
+        }
+
+        //Xử lý khi tua song bằng thanh input range
+        progress.onchange = function(e){   // Sự kiện khi mà thanh input progress thay đổi giá trị  ==> Đối số đầu tiên của 1 hàm Events đó chính là event đó 
+          const seekTime =audio.duration /100 * e.target.value      // e.target.value đó chính . target chính là cái mà nó có sự kiện . value là là giá trị của cái được bắt ==> chỗ này nó trả về giá trị phần trăm 
+          audio.currentTime = seekTime                // Gán cho giá trị hiện tại của bài hát bằng phần trăm của thanh input vừa nhận được 
+        }
+
+        //Xử lý ấn next song 
+        nextBtn.onclick =function(){
+          if(_this.isRandom){        // Nếu mà nút ramdom còn true thì bài hát sẽ được next 1 cách lộn xộn theo hàm Math.random() ở dưới // nếu false thì sẽ cho chạy tuần tự bằng các currentIndex++ ở hàm next dưới 
+            _this.playRandomSong()
+          }
+          else{
+            _this.nextSong()      // Cách viết này tương đương với app.nextSong  gọi tới cái method của object app
+          }
+
+          audio.play()
+          player.classList.add('playing')   // Khi ấn next cái bài hát chạy luôn thì phải đổi thành nút pause
+          _this.render()   // Render lại để hightline lại cho  cho bài đang được hát 
+          _this.scrollToActiveSong()   // kéo bài được hát lên chính giữa màn hình 
+        }
+
+        //Xử lý sự kiện prev song 
+        prevBtn.onclick =function(){
+          if(_this.isRandom){
+            _this.playRandomSong()
+          }
+          else{
+            _this.prevSong()          // Khi mà bài hát đang chạy mà ấn next hay prev thì cd vẫn quay nhưng bài hát không chạy luôn , bởi vì bị chen mất cái source
+          }
+          audio.play()
+          player.classList.add('playing')
+          _this.render()
+          _this.scrollToActiveSong()
+        }
+
+
+        // Xử Lý bật tắt Ramdom
+        randomBtn.onclick =function(e){
+          _this.isRandom = !_this.isRandom    // Khi ấn vào nút đó thì chính nó sẽ phủ định lại chính nó => Để thực hiện cho lần ấn tiếp theo 
+          _this.setConfig('isRandom',_this.isRandom)          // Ở đây chính là đi set key: value vào trong local storage
+          randomBtn.classList.toggle('active',_this.isRandom)   //Khi isRandom là true thì sẽ cho thêm vào class active , nếu là false thì nó sẽ xoá đi class active đó 
+        
+        }
+
+        //Xử lý lặp lại 1 song 
+        repeatBtn.onclick = function(){
+          _this.isRepeat = !_this.isRepeat
+          _this.setConfig('isRepeat',_this.isRepeat)           // Ở đây chính là đi set key: value vào trong local storage
+          repeatBtn.classList.toggle('active', _this.isRepeat)
+        }
+
+
+        // Xử lý audio onEnded : Khi kết thúc bài hát thì làm gì 
+        audio.onended = function(){   // onended đó là sự kiện của audio :=> khi thời lượng của audio kết thúc sẽ đẩy ra 1 sự kiện đó 
+        if(_this.isRepeat){          // Nếu mà nút Repeat còn hoạt động thì cho chạy bài hiện tại luôn . ngược lại thì sẽ cho chạy hàm next ở bên dưới
+          audio.play()
+        }
+        else{
+          nextBtn.click()     // click()  : Đây chính là phương thức click giả tương tự như việc tự mình bấm nút click 
+        }
+        }
+
+  
+        // Xử lý bấm vào 1 bài hát playlist
+        // Kỹ thuật nâng cao sau khi render xong có thể lắng nghe vào từng class song cũng được
+        playlist.onclick =function(e){
+          const songNode = e.target.closest('.song:not(.active)') //songNode chính là cái biến có thể là bất cứ thằng nào nhưng loại trừ trường hợp kích vào thằng nào có class active 
+          if (songNode || e.target.closest('.option'))     // closest : trả về chính nó hoặc cha của nó , k tìm được gì trả về null  => sẽ có nếu là bất kể cái nào có class song nhưng k có class active hoặc nó là option
+        {
+          // Xử lý click vào song 
+          if (songNode){
+          _this.currentIndex =  Number(songNode.getAttribute('data-index'))   // Lấy ra thuộc tính data_index : cái mà đã được tạo ra khi render
+            //songNode.dataset.index // cách 2: ngắn gọn hơn khi đã viết là data- là dùng dataset rồi 
+            _this.loadCurrentSong()        // Load lại bài hát đó đưa vào lại img và src
+            audio.play()       // Cho chạy bài hát đó luôn 
+            _this.render()     // Cho render lại danh sách bài hát để thằng nào đang hát thì sẽ cho hightline
+          }
+
+          // Xử lý khi click vào song option 
+          if(e.target.closest('.option')){}
+        }
+        }
+      },
+
+    
+    
+
+// Method để cuộn bài hát đang được hát cho vào view
+  scrollToActiveSong: function(){
+    if(this.currentIndex == 0 || this.currentIndex == 1|| this.currentIndex == 2)
+    {
+      setTimeout(()=>{    // setTimeout() tham số đầu tiên là 1 hàm hành động . tham số thứ 2 là thời gian đợi của hàm ấy để được chạy 
+      $('.song.active').scrollIntoView({    // Cú pháp  giúp kéo nội dung được bắt vào màn hình 
+        behavior: 'smooth',           // Cách thức thực hiện cư xử của scrollIntoView sẽ như thế nào 
+        block:'center'          // Sẽ kéo đối tượng được bắt vào vị trí nào 
+      })
+    },100)
+    }
+    else
+    {
+      setTimeout(()=>{
+        $('.song.active').scrollIntoView({    // Cú pháp  giúp kép nội dung được bắt vào màn hình 
+          behavior: 'smooth',
+          block:'nearest'
+        })
+      },100)
+    }
+  },
+    
+  //Method để đẩy bài hát lên hiện hành cho chạy 
+  loadCurrentSong: function(){
+      heading.textContent = this.currentSong.name        // Load tên bài hát được chọn lên khung phát nhạc
+      singerName.innerHTML = `${this.currentSong.singer}`   // Load tên ca sĩ lên trên khung phát nhạc
+      cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`   // Load hình ảnh của bài hát để khung phát nhạc hiển thị
+      audio.src = this.currentSong.path    // Load source bài hát lên để audio nhận source mới 
+
+  },
+  
+  // Method Khi đã lưu cấu hình ở local rồi phải load ngược lại ra 
+  loadConfig: function (){
+    this.isRandom = this.config.isRandom    // Lấy thông số từ cái hàm config gán vào biến thôi
+    this.isRepeat = this.config.isRepeat
+  },
+
+  //Method để chuyển bài hát
+    nextSong: function(){
+      this.currentIndex++   // Cho chỉ mục của bài hát tăng lên 1
+      if(this.currentIndex >= this.songs.length){    // Nếu chỉ mục của bài hát đó vượt quá số lượng bài hát hiện có 
+        this.currentIndex =0
+      }
+      this.loadCurrentSong()      // Đẩy lại nguồn url song và source img
+    },
+    prevSong: function(){
+      this.currentIndex--
+      if(this.currentIndex < 0 ){
+        this.currentIndex =this.songs.length-1
+      }
+      this.loadCurrentSong()
+    },
+
+    //Method để chọn random bài hát 
+    playRandomSong: function (){
+      let newIndex
+      do{
+        newIndex = Math.floor(Math.random() * this.songs.length)        
+      }
+      while(newIndex === this.currentIndex)      // Nếu tình huống mà số random lại trùng với bài hát hiện tại thì sẽ cho chạy lại đến khi nào khác mới thôi 
+      this.currentIndex = newIndex         // Chỉ đơn giản là đưa chỉ mục bài hát hiện tại lên = số vừa random
+      this.loadCurrentSong()
+    },
+
+    // Đây là method tổng quan . Để code rất tường minh và rõ hiểu ===> Làm xong tất cả sau chỉ cần chjy duy nhất method này 
+    start : function () {
+      // Gán cấu hình từ config
+      this.loadConfig()
+
+        // Định nghĩa các thuộc tính hco Object 
+        this.defineProperties()  // Định nghĩa 1 hàm thuộc tính 
+        
+        //Lắng nghe sự kiện / Xử lý sự kiện ( DOM events)
+        this.handleEvents()
+
+        //Tải thông tin bài hát đầu tiên vào ui Khi chạy  ứng dụng 
+        this.loadCurrentSong()
+
+        //Render playlist
+        this.render()
+
+        // Hiển thị trạng thái tù local vào ứng dụng
+        randomBtn.classList.toggle('active',this.isRandom) 
+        repeatBtn.classList.toggle('active', this.isRepeat)
+    }
+    }
+    
+    app.start();   // Chỉ cần cho chạy duy nhất methd này 
+
+    console.log(window.scrollY)
+    console.log(document.documentElement.scrollTop)
+    audio.ontimeupdate = function (){
+      // console.log(audio.currentTime)   // Chỉ được hiện duy nhất 1 lần vì k có vòng lặp 
+    }
+    console.log(audio.duration)
+    console.log(cdThumbAnimate)
+  
+
+  </script>
+</div>
+
+<!-- Design from: https://static.collectui.com/shots/3671744/musicloud-revolutionary-app-for-music-streaming-large -->

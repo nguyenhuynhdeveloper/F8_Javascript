@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // BÀI TOÁN : GIỎ HÀNG MỖI SẢN PHẨM LÀ 1 PHẦN TỬ CỦA MẢNG = OBJECT CHỨA CÁC KEY : VALUE
+        const array11 = [{ name: 1, age: 2 }, { name: 2, age: 2 }, { name: 3, age: 2 }, { name: 3, age: 2 }, { name: 4, age: 2 }, { name: 5, age: 2 }, { name: 5, age: 2 }, { name: 6, age: 2 }, { name: 6, age: 2 }, { name: 6, age: 2 },]
+
+        // -----------HÀM đếm số phần tử xuất hiện trong mảng -----------//
+        function countElement(array, x) {
+            let count = 0;
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].name == x.name)
+                    count++;
+            }
+            return count
+        }
+        //--------------HÀM đưa ra kết quả phần tử này có bị trùng lặp không --------
+        function loc(arr, item) {
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].name == item.name) {
+                    return false
+                }
+            }
+            return true
+        }
+        // HÀM filter chỉ lọc ra các phần tử thoả mãn điều kiện trong từng vòng lặp thôi ,nếu thoả mãn thì trả ra cái phần tử đó 
+        // function unique(arr) {
+        // var newArray = []
+        // newArray=arr.filter(function (item) {    
+        //     return  item.name == 6    // Điều kiện viết ngay ở sau return . tức điều kiện đó đúng thì each đó sẽ được trả về
+        // })                             // newArray đúng là sẽ hứng tất cả các each mà thoả mãn điều kiện phía sau return    
+        // return newArray
+        // }
+
+        // // FALSE
+        //     function unique(arr) {
+        //     var newArray = []
+        //     newArray=arr.filter(function (item) {      
+        //         return  loc(newArray, item)             // Nhưng ở đây là vẫn đang so sánh với newArray là 1 mảng rỗng        
+        //     })
+        //     return newArray
+        // }
+
+        ////TRUE
+        // function unique(arr) {
+        //     var newArray = []
+        //     newArray=arr.filter(function (item) {
+        //        const soLan = countElement(arr, item)
+        //         elementOfArray = { ...item, quantity: soLan }
+        //         a = loc(newArray, item) ? newArray.push(elementOfArray) : ''   // Bên trong thân hàm vừa có thể viết điều kiện vừa có thể thực thi hành động gì đấy
+        //         console.log(newArray)
+        //         return a                                             // return chỉ nhận kết quả true false       
+        //     })
+        //     return newArray   // Đúng là bên trong thân hàm newArray có key quantity , nhưng cuối cùng nó k nhận cái kết quả của các lần đó . mà vẫn phải là cái mảng để hứng các phần tử thoả mãn điều kiện filter()
+        // }
+
+        // // TRUE cái return ở đây chỉ nhận giá trị true/false để đưa ra phần tử của lần lặp đó có được trả ra hay k 
+        // function unique(arr) {
+        //     var newArray = []
+        //     newArray=arr.filter(function (item) {
+        //         console.log(loc(newArray, item))
+        //         return loc(newArray, item) ? newArray.push(item) : ''  // mấu chốt "" rỗng cũng đưa ra giá trị là false
+        //     })
+        //     return newArray
+        // }
+
+        // // TRUE cái return ở đây chỉ nhận giá trị true/false để đưa ra phần tử của lần lặp đó có được trả ra hay k 
+        //  function unique(arr) {
+        //     var newArray = []
+        //     newArray=arr.filter(function (item) {           
+        //       if (loc(newArray, item )) {
+        //           return newArray.push(item)
+        //       }
+        //       else {
+        //           return ''
+        //       }
+        //     })
+        //     return newArray
+        // }
+
+        ////TRUE    : Cách tạo 1 mảng hoàn chỉnh sau đó mới lọc 
+        // // -------map()   sử dụng để sao chép và thay đổi giá trị phần tử của mảng
+        // // return của map là nếu biểu thức logic là đúng - phần tử thoả mãn thì sẽ trả ra cái gì cho mảng mới
+        // function unique(arr) {
+        //     var newArray = []
+        //     newArray = arr.map(function (item) {
+        //         if (loc(newArray, item)) {
+        //             const soLan = countElement(arr, item)
+        //             elementOfArray = { ...item, quantity: soLan }
+        //             loc(newArray, item) ? newArray.push(elementOfArray) : ''   // Cái mảng newArray này dù là được push phần tử thật . nhưng rốt cục sau cùng nó vẫn trả ra về là mảng hứng kết quả của map. chứ k trả ra mảng nhận push
+        //             return elementOfArray
+        //         }
+        //         else {
+        //             return
+        //         }
+        //     })
+        //     return newArray.filter((item) =>  item != undefined)
+        // }
+
+
+
+        // TRUE 
+        //-----reduce()  : luôn trả về giá trị của biến tích trữ
+        // return chính là trả ra cái tham số total || total + current value
+        //---------HÀM lọc các phần tử trùng nhau _ và thêm 1 trường key quantity : số lần xuất hiện của từng phần tử vào trong object là phần tử con của mảng------------------
+        function unique(arr) {
+            let newArr = [ ]
+            
+            newArr = arr.reduce(function (total, item) {
+                const soLan = countElement(arr, item)
+                elementOfArray = { ...item, quantity: soLan }
+                return total =  [...total, elementOfArray]
+            }, [])
+            .filter(function (item) {
+                // loc(newArr, item) ? newArr.push(item) : ""
+                // return loc(newArr, item)   // Cách viết này k được vì cái lọc này đang lọc cái mảng mà nó đã được push thêm phần tử đó nên mặc định lúc nào cũng ra false
+                a = loc(newArr, item )
+                loc(newArr, item) ? newArr.push(item) : ""
+                return a     // Phải viết như thế này 
+            })
+            return newArr
+        }
+
+        console.log(unique(array11))
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // kiểu dữ liệu số number        
+        /**
+         Kiểu số (Number) trong javascript 
+         1. Tạo giá trị Number
+         - Các cách tạo 
+         - Dùng cách nào tại sao 
+         - Kiểm tra data type
+         
+         2. Làm việc với Number 
+         - To string 
+         - To Fixed 
+         // Keyword : Javascript number methods 
+         */
+         var age = 18;
+        var pi = 3.24;
+        var ortherNumber = new Number(9); // Sẽ tạo ra 1 object chứ không phải một giá trị dữ liệu kiểm number
+        
+        var result = 20 / 'ABC';
+
+        // cách viết ngắn gọn số 0
+        var million = 1000000
+        var million = 1e6   // Tương đương cách viết 1 triệu 
+
+        // Một số method thường sử dụng với number
+        myNum = 10;
+        //------ Number.isFinite(abc) // Trả về giá trị true/false xác định xem biến có phải số hữu hạn hay không
+        //Sẽ trả về False với bất kì giá trị nào không thuộc kiểu Number. 
+        console.log(Number.isFinite(myNum))  // Xác định xem biến đó có phải là số hữu hạn hay không. không chuyển giá trị cần kiểm tra mà kiểm tra luôn 
+        console.log(isFinite(myNum))    // Hàm toàn cục chuyển giá trị cần kiểm tra sang Number rồi sau đó mới kiểm tra nó 
+        
+        // -------Number.isNaN(abc) == isNaN(abc)  : Kiểm tra biến abc có phải dạng NaN
+        // NaN là một kiểu dữ liệu không phải là số 
+        // Lấy số 0 chia cho số 0
+        // Lấy vô cùng (infinity) chia cho vô cùng (infinity)
+        // Nhân vô cùng (infinity) với số 0
+        // Bất kỳ phép tính toán nào trong đó NaN là một toán hạng
+        // Chuyển đổi một xâu non-numeric hoặc undefined về dạng number.
+
+        console.log(Number.isNaN(result))  // Không ép sang kiểu số sẽ trả về false với bất kỳ giá trị nào không thuộc kiểm number
+        console.log(isNaN(result));       // Đây là hàm toàn cục sẽ chuyển giá trị cần kiểm tra sang kiểu số rồi mới kiểm tra   
+
+        //------- Number.isInteger(abc) : Trả về giá trị true/false // Xác định xem biến đó có phải số nguyên hay không
+        console.log(Number.isInteger(myNum))
+        // console.log(isInteger(myNum))  :FALSE
+
+        const myNum2 = 100.902930
+        
+        //------Number.isSafeInterger(abc) : Có chức năng kiểm tra giá trị có là 1 safe number hay không
+        //Phương thức sẽ trả về True nếu giá trị truyền vào thuộc kiểu number và là một safe number
+        //Safe number là những số có thể được biểu diễn chính xác theo chuẩn EEE-754 ( tất cả các số nằm trong khảng từ 253-1 đến -(253-1)).
+        console.log(Number.isSafeInteger(myNum2))
+
+
+
+        //------Number.parseFloat(abc) : Chuyển đổi chuỗi đã cho thành 1 số thực
+        const takeNum = Number.parseFloat(myNum)
+        const takeNum_1 = parseFloat(myNum)   // Viết này ok 
+        // console.log(myNum1.parseFloat()) : FALSE
+
+        console.log(takeNum)
+        console.log(takeNum_1)
+
+        // Number.parseInt(abc)   //Chuyển đổi chuỗi đã cho thành 1 số nguyên 
+        const myNum1 = "100"
+        const takeNum1 = Number.parseInt(myNum1)
+        const takeNum1_1 = parseInt(myNum1)    // Viết này ok 
+        // console.log(myNum1.parseInt()) : FALSE
+
+        console.log(takeNum1)
+        console.log(takeNum1_1)
+
+      
+      
+
+        //------- "Number".toString()   //Chuyển đổi và chuyển số đã cho thành dạng chuỗi
+        const myNum3 = 18
+        console.log(typeof myNum3.toString())  // Kết quả sẽ chuyển thành dạng String
+        console.log(myNum3.toString())   // Chuyển thành "18"
+
+        console.log(myNum3.toString(2))   // Chuyển thành "hệ nhị phân "
+        console.log(myNum3.toString(8))   // Chuyển thành "hệ bat phân "
+        console.log(myNum3.toString(16))   // Chuyển thành "hệ thập lục phân "
+
+        // -------"Number".toFixed(5)   //Sẽ chuyển đổi một số thành kiểu chuỗi, giữ lại số chữ số thập phân do người dùng xác định.
+        // Rút gọn số về 5 chữ số sau dấu thập phân  
+        const takeNum2 = myNum2.toFixed(3)
+        console.log(takeNum2)
+        // Làm tròn số thập phân 
+        console.log(pi.toFixed(5))    // Làm tròn tới số thập phân số 5, và chuyển thành dữ liệu String 
+
+        //------ "Number".toExponential(5)  : sẽ chuyển đổi một giá trị số thành một số mũ với cơ số là 10. Ví dụ số 156 sau ghi gọi phương thức number.toExponential() sẽ trở thành 1.56e+2, e+2 tương đương với 102.
+        // 5 là tham số không bắt buộc, có giá trị từ 1 đến 20, nó sẽ quy định số chữ thập phân, nếu không được truyền thì nó sẽ được thiết lập với số chữ số tối đa có thể để biểu diễn cho giá trị chuyển đổi.
+
+        console.log(myNum2.toExponential(3))
+
+        //------"Number".toPrecision(5) : sẽ chuyển đổi một số thành một số khác với chiều dài định trước.
+        console.log(myNum2.toPrecision(8))
+
+        //------"Number".valueOf(): Phương thức này không hay được sử dụng vì ta thường gọi trực tiếp number thay vì number.valueOf(), chúng sẽ trả về cùng một kết quả.
+        console.log(myNum2.valueOf())  // Hoàn toàn như nhau
+        console.log(myNum2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

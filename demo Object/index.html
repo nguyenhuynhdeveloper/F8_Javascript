@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //https://viblo.asia/p/mot-so-phuong-thuc-voi-object-trong-javascript-Eb85opEOK2G
+
+        // --------Object.create(...) : Tạo 1 object mới copy  các thuộc tính key của object có sẵn 
+        // targetObject = Object.create(sourceObject)
+        prototypeObject = {
+            fullName: function () {
+                return this.firstName + ' ' + this.lastName
+            }
+        };
+        var person = Object.create(prototypeObject);
+        console.log(person); // {}
+
+        person.firstName = 'Hieu';
+        person.lastName = 'Bui';
+
+        person.fullName();
+
+        console.log(person.fullName()); // Hieu Bui
+
+        //-------- Object.assign(...) : Sao chép tất cả các giá trị thuộc tính riêng của 1 hoặc nhiều object vào 1 Object nhận 
+        // Object.assign(receiveObject , sourceObject) --> Cách 1
+        const receiveObject = {}
+        const sourceObject = {
+            firstName: 'Hieu',
+            lastName: 'Bui'
+        };
+        Object.assign(receiveObject, sourceObject)
+        console.log(receiveObject)
+        
+        //const receiveObject = Object.assign({}, sourceObject) --> Cách 2 : :lấy 1 {} rỗng để hứng hết : sau đó gán vào 1 biến khác
+        const takeObject1 = Object.assign({}, sourceObject);    // Nếu Objcet nhận có các key: value mà trùng thì sẽ được ghi đè
+        console.log(takeObject1) 
+
+        //--------Object.keys() : Trả về một mảng các tên thuộc tính property key của 1 object đã cho 
+        // var takeArray = Object.keys(myObject)
+
+        var arr = ['a', 'b', 'c'];
+        console.log(Object.keys(arr));       // ['0', '1', '2']
+
+        var obj = { 0: 'a', 1: 'b', 2: 'c' };
+        const takeArr = Object.keys(obj)      // Biến sẽ hứng được là 1 mảng bao gồm các key của Obj
+        console.log(takeArr);       // ['0', '1', '2']
+
+        //-------Object.values()  : Trả về 1 mảng chứa tất cả các value của 1 object đã cho (Chỉ 1 object được truyền vào)
+ 
+        const takeArr1 = Object.values(obj)      // Biến sẽ hứng được là 1 mảng bao gồm các key của Obj 
+        console.log(takeArr1);       // ['a', 'b', 'c']
+
+
+        //-------Object.entries() : Trả về 1 mảng chứa các phần tử là [key, value] của 1 object đã cho -- Tương tự dùng vòng lặp for...in
+
+        const obj2 = {
+    firstName: 'Hieu',
+    lastName: 'Bui'
+};
+console.log(Object.entries(obj2)); // [ [ 'firstName', 'Hieu' ], [ 'lastName', 'Bui' ] 
+  
+
+//-----OBject.fromEntries() //Phương thức này giúp bạn chuyển đổi mảng , Map hay bất cứ đối tượng nào sử dụng giao thức lặp (iterable protocol)  thành object
+// objMap =["a" ,"b" ,"c" ,"d"]
+// Object.fromEntries(objMap)
+
+//-------'Object'.prototype : 
+// Khi một hàm được tạo trong Javascript thì nó sẽ thêm thuộc tính prototype vào hàm đó. ---> hàm đó có thể .prototype đó 
+// Thuộc tính prototype là một object với mặc định có constructor. 
+// Tất cả các object trong Javascript kế thừa các thuộc tính và phương thức từ prototype. ---> Thừa hưởng và có thể .prototype đó 
+
+
+function Human(firstName, lastName) {   // Khi mà hàm này khai báo xong là mặc định nó có thuộc tính prototype bên trong nó -- prototype này mặc định có constructor
+	this.firstName = firstName,
+	this.lastName = lastName
+};
+console.log(Human)   // Đây đưa ra Human nó là 1 hàm 
+
+Human.prototype.showFullName = function() {     // hàm human đang trỏ tới cái thuộc tính đó và thêm giá trị vào cho object 
+    console.log(this.firstName + ' ' + this.lastName); // Cái showFullName này sẽ không nằm trong key: value mặc định của object mà nó nằm trong [Prototype]
+}
+
+const human1 = new Human('Hieu', 'Bui');
+human1.showFullName();
+
+console.log(human1)    // Bên trong [Prototype] sẽ có showFullName : f() , constructor: f Human (firstName, lastName) , [[Prototype]]: object
+
+// "Object.prototype".constructor : Trả về tham chiếu hàm constructor tạo nên object . Tất cả các object đều có thuộc tính constructor
+console.log(human1.constructor)
+
+// "Object.prototype".hasOwnProperty("...") : trả về giá trị true/ false cho biết object có thuộc tính được đưa ra hay không
+console.log(human1.hasOwnProperty("firstName"))
+
+
+// "Object.prototype".toString() : Trả về chuỗi đại diện của 1 object 
+
+console.log(obj.toString())// [object Object]
+
+//Bạn có thể sử dụng prototype để ghi đè phương thức toString().
+
+function Person(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+};
+
+person = new Person();
+
+Person.prototype.toString = function objToString() {
+    return 'This is overriding string';
+}
+console.log(person.toString()); // This is overriding string
+
+//"Object.prototype".valueOf()   :Trả về giá trị nguyên thuỷ của 1 object xác định 
+obj ={ a: "a"}
+console.log(obj.valueOf())
+
+
+//https://2kvn.com/mot-so-phuong-thuc-huu-ich-cua-object-trong-javascript-co-the-ban-chua-biet-p5f32343935
+
+//------- Object.preventExtensions() :  Phương thức này rất đơn giản không cho phép thêm thuộc tính mới  vào đối tượng -- Vấn cho phép thay đổi + xoá value của thuộc tính cũ
+//------- Object.isExtensible()  : Để kiểm tra một đối tượng có được mở rộng hay không
+objPrevent ={a : "a"}
+Object.preventExtensions(objPrevent)
+
+objPrevent.a ="nguyen"
+delete objPrevent.a
+objPrevent.b ="b" //Lỗi
+
+console.log(obj)
+
+//--------Objec.seal()  : Phương thức này ngăn không cho thêm + xoá thuộc tính mới vào đối tượng . ----Vẫn có thể thay đổi thuộc tính cũ của đối tượng
+//--------Object.isSealed() : Để kiểm tra một đối tượng có bị phong kín hay không
+const objSeal = { a: "a"}
+Object.seal(objSeal)
+
+objSeal.a = "c"
+delete objSeal.a  // Lỗi
+objSeal.b = 'b'  // Lỗi 
+
+console.log(objSeal)
+
+
+//------Object.freeze() : Ngăn không cho thêm thuộc tính mới - ngăn không xoá thuộc tính cũ --- ngăn không cho thay đổi value thuộc tính cũ
+//------Object.isFrozen(obj) : Để kiểm tra xem object có bị đông cứng hay không 
+
+const objFreeze = { a: "a"}
+Object.freeze(objFreeze)
+
+objFreeze.a = "c"  // lỗi 
+delete objFreeze.a  // Lỗi
+objFreeze.b = 'b'  // Lỗi 
+
+
+//Object.is(...) : Phương pháp so sánh 1 giá trị có bằng nhau hay không 
+// Object.is(value1, value2)
+//value1 được xem là bằng value2 nếu:
+// Cả hai cùng là undefined
+// Cả hai cùng là null
+// Cả hai cùng là true, hoặc cùng là false
+// Cả hai cùng là chuỗi có độ dài bằng nhau với các ký tự được xếp theo cùng một thứ tự
+// Cả hai cùng trỏ về một đối tượng
+// Cả hai cùng là +0, -0, hoặc NaN
+// Cả hai cùng là số khác 0, không phải NaN và có giá trị bằng nhau
+// Điểm khác nhau giữa phương thức này với == là == có thực hiện ép kiểu nếu value1 và value2 không cùng một kiểu giá trị, trong khi Object.is() không thực hiện việc chuyển đổi này. Object.is() cũng khác === vì === xem +0 === -0 và Number.NaN !== NaN.
+
+Object.is('foo', 'foo') // true
+Object.is(window, window) // true Object.is('foo', 'bar') // false
+Object.is([], []) // false const foo = { a: 1 }
+const bar = { a: 1 }
+Object.is(foo, foo) // true
+Object.is(foo, bar) // false Object.is(null, null) // true // Trường hợp đặc biệt
+Object.is(0, -0) // false
+Object.is(-0, -0) // true
+Object.is(NaN, 0 / 0) // true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
