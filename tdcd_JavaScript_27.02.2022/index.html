@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./script.js">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+document.write('Hello World')  //Viết lên màn hình 
+console.log('Hello World')   // Viết lên cửa số console.log
+// alert( 'Hello World!')         // Tạo ra 1 cảnh  báo 
+
+// #3 . variables (biến) trong JavaScript
+
+var name = 'Huỳnh đẹp trai ' // Ngày xưa thường dùng var
+document.write(name)
+ // Chuẩn ES6 mới thay var bằng let . và hay dùng const: giá trị của biến sẽ không thay đổi trong suốt quá trình chạy 
+ // Biến là kiểu chứa dữ liệu 
+ // Js có chữ số . chuỗi string bao bởi ''
+
+ // #4. Toán tử- Operation 
+ let firstNum = 5 ;
+ let second = 3; 
+ document.write(firstNum + second);
+  // Có thể cộng chuỗi 
+  let firstNum_1 = 'Huỳnh ' ;
+ let second_1 = 'Quá đẹp trai '; 
+ document.write(firstNum_1 + second_1);
+
+ // Các toán tử rút gọn 
+ let firstNum_2 = 5 ;
+ firstNum_2 = firstNum_2 + 1;
+ document.write(firstNum_2);
+
+ let second_2 = 10 ;
+ second_2    +=    5;    // += Không được viết cách nhau 
+ second_2 ++              // ++ Không được viết cách nhau 
+ document.write(second_2);  //kết quả sẽ ra 16
+
+// #5. Object (Đối tượng ) trong JavaScript
+// Đối tượng bao gồm nhiều thuộc tính của đối tượng đó
+let huynh  ={
+    name : 'Huỳnh đẹp trai ',
+    kute : true ,
+    age: 24,
+    // Thuộc tính của 1 đối tượng còn có thể là 1 function 
+    sing : function (){
+        document.write (' Từ nay về sau chỉ mong mình sẽ cho nhau lối đi ......')
+    }
+};
+// Truy cập vào đối tượng 
+document.write(huynh.name)
+document.write(huynh.age)
+huynh.sing()  // Cho lấy ra thuộc tính chứa hàm đó
+
+
+// #6.  String (chuỗi) - Object đặc biệt
+// 1 chuỗi là 1 string là 1 Object thì có khác là nhiều thuộc tính  và khá là nhiều syntax method
+let cauChao = " Hello các bạn mình là Nguyễn Huỳnh. Developer "
+document.write(cauChao.length)  // Đưa ra độ dài của chuỗi 
+document.write(cauChao.split(' '))  // Cắt chuỗi này ra thành các từ dựa vào dấu cách 
+document.write(cauChao.split(''))  // Cắt chuỗi này ra thành các chữ cái 
+document.write(cauChao.includes('Hello'))   // Check xem trong chuỗi đó có chữ Hello hay không 
+
+// #7. Array (Mảng) -Chứa nhiều giá trị , cách lưu trũ thay cho biến 
+// Một mảng chứa được nhiều thông tin và nhiều giá trị giống nhau hơn 
+
+const traiCay = new Array(4)   // Khai báo mảng dựa vào new Array(Số lượng phần tử trong mảng)
+traiCay[0] = 'Xoài'
+traiCay[1] = 'Mít'
+traiCay[2] = 'Táo'
+traiCay[3] = 'Bưởi'
+ console.log(traiCay)
+ console.log(traiCay[2])
+// Cách khai báo mảng dễ hơn 
+const soDep = new Array ( 5 ,8 ,9 ,2 ,1);  // Nhớ cách nhau bởi dâu , đơn 
+console.log(soDep)
+
+// #8 Control Statement Câu lệnh điều khiển , If else | switch case
+// Gặp điều kiện này thì chùm câu lệnh này chạy. gặp điều kiện kia thì câu lệnh kia chạy 
+ var num = 10 ;
+ if(num >= 11 )
+{
+    console.log('Nguyễn Huỳnh đẹp trai vãi đái ')
+}
+else if (num == 10 ){
+    console.log('Nguyễn Huỳnh đẹp trai nhất nước')
+}
+else {
+    console.log('Nguyễn Huỳnh đẹp trai nhất nước')
+}
+ 
+// Khi làm 1 cái menu sẽ dùng switch case 
+const input = 1 
+switch (input){
+case 1 :
+console.log('1. Nhập Sản phẩm ')
+break;
+case 2 :
+console.log('2. In ra sản phẩm ')
+break;
+
+default:     // Nếu không có điều kiện case nào trên kia đúng thì sẽ thực hiện lệnh ở default
+    break;
+
+}
+ 
+
+// #9 Loop (Vòng Lặp) - For | While | do while
+// Để xử lí tình huống mà phải xử lí nhiều thông tin giống nhau 
+// for thường trong js cũ . for of trong ES 6 mới 
+const banhNgon = new Array ('chocopie' , 'Bánh Rán ' , 'Bánh Socola')
+for(const banh of banhNgon){   // Hàm này sẽ lặp từng phần tử trong banhNgon này và thực hiện câu lệnh trong {}
+    document.write(banh + '<br/>')  
+}
+
+for (let index = 0;index <banhNgon.length ;index++) {
+    console.log(index);
+    const element = banhNgon[index]
+    console.log(element)
+}
+
+
+// #10 function (Hàm) - Là một tập hợp các câu lệnh ,nó có đầu vào và đầu ra tách code thành các hàm nhỏ để cho các code dễ dàng quản lý hơn , dễ tái sử dụng hơn 
+function printToN(n) {
+    for(i =0 ; i<= n ; i++)
+    {
+        document.write(i + '</br>')
+    }
+
+}
+printToN(6)      // Gọi ra hàm printToN 
+
+
+// Kiến thức nâng cao 
+// 
+//     Front End : DOM manipalation : duyệt cây DOM như thế nào . giải quyết phần tử ra sao 
+// event  callback : Khi người dùng bấm vào cái nút nó sẽ chạy những cái gì ,  làm sao để bắt event khi người dùng bấm di chuột 
+// AJAX call : Làm sao để biết Client nó gọi dữ liệu tới Server và nó lấy thông tin về nó hiển thị về được 
+//     NODE JS : require, async io , node package , npm 
+//     
+
+</script>
+
+
+</body>
+</html>
