@@ -45,3 +45,7 @@ console.log(array11[0].name)
 const object = { name: 1, age: 2 }
 const object1 = { ...object, school: 'mta' }
 console.log(object1)
+console.log(object1)
+console.log(object1)
+console.log(object1)
+console.log(object1)
