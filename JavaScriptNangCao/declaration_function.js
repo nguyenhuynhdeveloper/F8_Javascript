@@ -29,3 +29,4 @@ console.log(declaration(1, 2))
 
 
     console.log("abc")
+    console.log("abc")
