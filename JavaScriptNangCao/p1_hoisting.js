@@ -34,3 +34,4 @@ console.log("setTimeOut Đã chạy xong")
 }, 3000)
 
 timeOut()
+console.log("abs")
