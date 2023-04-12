@@ -24,3 +24,8 @@ console.log(declaration(1, 2))
     if(!b) {
         console.log("Những cái đưa ra giá trị false thy : 0 , false, null, undefined, NaN , ,/"" '' " )
     }
+
+
+
+
+    console.log("abc")
