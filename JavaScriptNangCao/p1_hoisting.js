@@ -5,7 +5,7 @@
 
 //Var :Được hoisting sẽ khởi tạo giá trị là undefined
 
-// console.log(age)   //undefined
+// console.log(age)   //undefined  // Khai báo age ở dưới mà hoisting đưa lên chỉ đưa phần khai báo chứ k đưa phần gán nên ---> nên nó log râ undefined
 // console.log(fullName)  // fullName is not defined   == Cái này nó chặn luôn chương trình 
 // var age =16  //Đây là vừa khai báo vừa gán giá trị | mà hoisting chỉ đưa phần khai báo lên thôi , phần gán không đưa lên 
 
@@ -23,7 +23,7 @@ function sum(a, b) {
 //Hoisting với "let", "const"
 
 // {
-//     console.log(fullName)   // Cannot access 'fullName' before initialization
+//     console.log(fullName)   // sẽ log lỗi : Cannot access 'fullName' before initialization
 //      let fullName = "nguyen huỳnh"
 // }
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const oldArray = [{a: 1}, {a: 2}, {a: 3}, {a: 4}, {a: 5} ];
+        const newArray = [{a: 6} , {a: 7}, {a: 8 }, {a: 9}, {a: 4, b: 8}, {a: 5, b: 10} ];
+
+
+        // find : Chính là trả ra giá trị đầu tiên tìm được thoả mãn kết quả return 
+        // find sẽ ứng dụng kiểm tra mảng đó có phần tử nào không
+
+        // BÀI TOÁN : Lấy hết phần tử của 1 mảng cũ  ,
+        // Nếu có phần tử trùng với mảng mới thì lấy phần tử của mảng mới
+
+        // const map1 = oldArray.map(x => {
+        //     return newArray.find(e => e.a == x.a) ?? x;
+        // });
+        
+        
+        // BÀI TOÁN : Tìm ra các phần tử trùng nhau giữa 2 mảng sẽ lấy ra phần tử của mảng Mới 
+        // Lặp qua các phần tử của mảng cũ ,
+        // rồi lại lặp qua tất cả các phần tử của mảng mới bằng hàm find  
+        // Sẽ trả ra phần tử đầu tiên của mảng mới trùng với phần tử đang lặp của mảng cũ , 
+        // Nếu không thì trả ra undefined
+
+        // const map1 = oldArray.map(x => {
+        //     return newArray.find(e => e.a == x.a);
+        // }).filter(e => e!= undefined)
+
+       
+        // BÀI TOÁN : Lấy hết phần tử của mảng mới và nhận thêm các phần tử không trùng của mảng cũ 
+        // Lấy thêm những phần tử mà mảng mới không có ở mảng cũ
+
+        const map1 = oldArray.reduce(
+            (accumulator, currentValue) => {
+                // Lặp qua tất cả các phần tử của mảng chứa 
+                // Nếu không tìm thấy bất kỳ phần tử nào trùng với giá trị hiện tại của mảng lặp reducer 
+                // Thì cho phần tử currentValue đó vào mảng chứa accumalator 
+
+            if (!accumulator.find(x => x.a == currentValue.a)) {
+                return [...accumulator, currentValue];
+            }
+            return accumulator;
+        }, newArray);  // Giá trị initialValue là Mảng newArray 
+
+        // Return trong reducer : chính là return ra kết quả tính toán của  mảng chứa + phần tử hiện tại 
+        // Kết quả này sẽ được đưa ra là mảng chứa của lần lặp sau 
+        
+
+console.log(map1);
+    </script>
+</body>
+</html>

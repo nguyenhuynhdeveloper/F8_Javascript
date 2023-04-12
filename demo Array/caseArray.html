@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+// Bài toán : Loại bỏ các phần tử trùng nhau trong 1 mảng
+  function unique(arr) {
+  var newArr = []
+  newArr = arr.filter(function (item) {
+    return newArr.includes(item) ? '' : newArr.push(item)
+  })
+  return newArr
+}
+console.log(unique([1, 1, 2, 3, 5, 3, 1, 5, 6, 7, 4]))
+
+
+
+const filterArr = (listWifi, listRandom) => {
+        const array =[]
+        listWifi.forEach(element => {
+          console.log("element", element?.ssid)
+
+            if(listRandom.filter(e => e?.ssid == element?.ssid).length ) {
+              console.log("co trung ")
+                return
+            }else{
+              console.log("khong trung")
+                array.push(element)
+            }
+        })
+        console.log("wifi ", array);
+        return array.concat(listRandom)
+     }
+
+     const checkHave =(listRandom) => {
+
+     }
+     const listRandom= [{random: '952731245', result: 'ok', ssid: 'INVIV-CAMERA-CLOUD-2.4GHZ', mac: 'a0:9f:10:bd:02:86', signal: '0'} ,{random: '952731245', result: 'ok', ssid: 'INVIV-CAMERA-CLOUD', mac: 'a0:9f:10:bd:02:86', signal: '0'}]
+     const  listWifi  = [{ssid: 'INVIV-CAMERA-CLOUD-2.4GHZ', signal: '0'} ,{ssid: 'INVIV-CAMERA-CLOUD', signal: '0'},{ssid: 'a', signal: '0'},{ssid: 'b', signal: '0'},{ssid: 'c', signal: '0'}]
+     
+     console.log("tim kiem ", listRandom.filter(e => e?.ssid == "INVIV-CAMERA-CLOUD-2.4GHZ"))
+
+     console.log(" wifi mang ",filterArr(listWifi, listRandom))
+    </script>
+</body>
+</html>

@@ -13,7 +13,27 @@
     <script>
 
         // BÀI TOÁN : GIỎ HÀNG MỖI SẢN PHẨM LÀ 1 PHẦN TỬ CỦA MẢNG = OBJECT CHỨA CÁC KEY : VALUE
-        const array11 = [{ name: 1, age: 2 }, { name: 2, age: 2 }, { name: 3, age: 2 }, { name: 3, age: 2 }, { name: 4, age: 2 }, { name: 5, age: 2 }, { name: 5, age: 2 }, { name: 6, age: 2 }, { name: 6, age: 2 }, { name: 6, age: 2 },]
+        // Các sản phẩm trong giỏ hàng phải là duy nhất và thêm số 1 trường số lượng sản phẩm đó
+        
+        const array11 = [
+            { name: 1, age: 2 }, 
+            { name: 2, age: 2 }, 
+            { name: 2, age: 2 }, 
+            { name: 3, age: 2 }, 
+            { name: 3, age: 2 }, 
+            { name: 3, age: 2 }, 
+            { name: 4, age: 2 }, 
+            { name: 4, age: 2 }, 
+            { name: 4, age: 2 }, 
+            { name: 4, age: 2 }, 
+            { name: 5, age: 2 }, 
+            { name: 5, age: 2 }, 
+            { name: 5, age: 2 }, 
+            { name: 5, age: 2 }, 
+            { name: 5, age: 2 }, 
+            { name: 6, age: 2 }, 
+            { name: 6, age: 2 }, 
+            { name: 6, age: 2 },]
 
         // -----------HÀM đếm số phần tử xuất hiện trong mảng -----------//
         function countElement(array, x) {
@@ -24,16 +44,17 @@
             }
             return count
         }
-        //--------------HÀM đưa ra kết quả phần tử này có bị trùng lặp không --------
+        //--------------HÀM đưa ra kết quả phần tử này có bị trùng lặp không -------- // Có thể thay bằng hàm find
         function loc(arr, item) {
             for (i = 0; i < arr.length; i++) {
                 if (arr[i].name == item.name) {
-                    return false
+                    return false  // trùng thì return false : Kết thúc vòng lặp luôn 
                 }
             }
-            return true
+            return true  // Khi đi qua vòng lặp mà không có phần tử nào trùng mới return  ra true ; báo không trùng
         }
-        // HÀM filter chỉ lọc ra các phần tử thoả mãn điều kiện trong từng vòng lặp thôi ,nếu thoả mãn thì trả ra cái phần tử đó 
+
+        // HÀM filter trả ra tất cả các phần tử thoả mãn điều kiện ,nếu thoả mãn thì trả ra cái phần tử đó 
         // function unique(arr) {
         // var newArray = []
         // newArray=arr.filter(function (item) {    
@@ -112,29 +133,51 @@
         // TRUE 
         //-----reduce()  : luôn trả về giá trị của biến tích trữ
         // return chính là trả ra cái tham số total || total + current value
-        //---------HÀM lọc các phần tử trùng nhau _ và thêm 1 trường key quantity : số lần xuất hiện của từng phần tử vào trong object là phần tử con của mảng------------------
-        function unique(arr) {
-            let newArr = [ ]
+        //  Hàm lọc các phần tử trùng nhau _ và thêm 1 trường key quantity : số lần xuất hiện của từng phần tử vào trong object là phần tử con của mảng------------------
+        
+        // function unique(arr) {
+        //     let newArr = [ ]
             
-            newArr = arr.reduce(function (total, item) {
-                const soLan = countElement(arr, item)
-                elementOfArray = { ...item, quantity: soLan }
-                return total =  [...total, elementOfArray]
-            }, [])
-            .filter(function (item) {
-                // loc(newArr, item) ? newArr.push(item) : ""
-                // return loc(newArr, item)   // Cách viết này k được vì cái lọc này đang lọc cái mảng mà nó đã được push thêm phần tử đó nên mặc định lúc nào cũng ra false
-                a = loc(newArr, item )
-                loc(newArr, item) ? newArr.push(item) : ""
-                return a     // Phải viết như thế này 
-            })
-            return newArr
-        }
+        //     newArr = arr.reduce(function (total, item) {
+        //         const soLan = countElement(arr, item)
+        //         elementOfArray = { ...item, quantity: soLan }
+        //         return total =  [...total, elementOfArray]   // Chỉ là thêm 1 trường cho phần tử
+        //     }, [])  // initial đang là phần tử đầu tiên của mảng arr
+        //     .filter( item => {
+        //         // loc(newArr, item) ? newArr.push(item) : ""
+        //         // return loc(newArr, item)   // Cách viết này k được vì cái lọc này đang lọc cái mảng mà nó đã được push thêm phần tử đó nên mặc định lúc nào cũng ra false
+               
+        //         a = loc(newArr, item )
+        //         loc(newArr, item) ? newArr.push(item) : ""  // Phương thức push chính là đưa phần tử đó vào mảng
+        //         return a     // Phải viết như thế này 
+        //     })
 
-        console.log(unique(array11))
+        //     return newArr
+        // }
 
 
+        //  FALSE
+        const array1 = array11.map(e => {
+            const soLan = countElement(array11, e)
+            return {...e}
+        })
 
+        let array2 = []
+
+         array3 = array1.forEach(e => {
+            if(array2.find(item => item == e )){
+                return 
+            }
+            else {
+                array2.push(e)
+                return 
+            }
+        })
+
+        console.log(array3)
+        console.log(array2)
+
+        // console.log(unique(array11))
     </script>
 </body>
 

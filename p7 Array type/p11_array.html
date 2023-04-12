@@ -1,3 +1,15 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F8 Các phương thứ làm việc với Array </title>
+</head>
+<body>
+    <script>
+
 /** l68 Array methods:
  * forEach()
  * every()  
@@ -8,7 +20,7 @@
  * reduce()
  */
 
-var myArrays = [
+ var myArrays = [
     {
         id: 1,
         name: 'nguyễn huỳnh',
@@ -47,10 +59,15 @@ var myArrays = [
 var newArray = []
 newArray = myArrays.forEach(function (each, index) {
     console.log(each)
-    return index
+    return true
 });
 
-console.log(newArray)    //-------false
+console.log(newArray)    //-------underfine vì mảng đó không có hứng gì cả, hàm forEach không có trả mảng
+console.log(
+    myArrays.forEach(function (each, index) {
+    console.log(each)
+    return true
+}))     // underfine : vì hàm forEach không return ra gì cả
 
 //-------- every() : Kiểm tra xem tất cả các phần tử của mảng có thoả mãn 1 điều kiện nào k -----AND return true/false
 
@@ -79,7 +96,8 @@ var myFind = myArrays.find(function (each, index) {
 console.log(myFind);
 
 
-//---------------  filter() : Giống find nhưng trả về tất cả phần tử thoả mãn ---- thoả mãn điều kiện lọc sẽ được đưa ra nhờ return ---- Điều kiện viết ngay sau return chứ return ở mấy hàm này không phải là trả ra chính xác cái gì
+//---------------  filter() : Giống find nhưng trả về tất cả phần tử thoả mãn ---- thoả mãn điều kiện lọc sẽ được đưa ra nhờ return ---- 
+//Điều kiện viết ngay sau return chứ return ở mấy hàm này không phải là trả ra chính xác cái gì
 var myFilter = myArrays.filter(function (myArray, index) {
     console.log(index);
     return myArray.name === 'Giám đốc';      //return ở đây chỉ là giá trị true/false để quyết định phần tử đó có được lọc ra đưa vào mảng mới hay không 
@@ -93,8 +111,9 @@ console.log(myFilter);
 //------------  map() : khi muốn chỉnh sửa thay đổi element của 1 array 
 //Thực tế map sử dụng rất nhiều rất nhiều , để người dùng nhìn thấy hiển thị view trong website
 
-var myMap = myArrays.map(function (eachElement, index, originArray) {    // Đối số 1: là từng phần tử của mảng được duyệt qua -- đối số 2 là key thứ tự phần tử
-    return {                                                                //Đối số 3: là mảng nguyên gốc ban đầu không tác động gì cả
+var myMap = myArrays.map(function (eachElement, index, originArray) {    // Đối số 1: là từng phần tử của mảng được duyệt qua --
+                                                                        // đối số 2 là key thứ tự phần tử
+    return {                                                            //Đối số 3: là mảng nguyên gốc ban đầu không tác động gì cả
         id: eachElement.id,
         name: `vị trí : ${eachElement.name}`,
         position: eachElement.position,
@@ -261,3 +280,9 @@ console.log(myString73.includes('Huỳnh'));      // Kết quả của method in
 
 var myArray73 = ['i', 'you', 'me', 'they']
 console.log(myArray73.includes('i', -1))    // Đối số đầu tiên là phần tử cần tìm - Đối số 2: Vị trí bắt đầu tìm Trường hợp đối số thứ 2 ít dùng
+
+
+    </script>
+</body>
+</html>
+

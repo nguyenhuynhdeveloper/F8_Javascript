@@ -17,7 +17,7 @@
 
      
         //  * IIFE trông như nào 
-        //  * 2. Dùng d ấu ; trước IIFE
+        //  * 2. Dùng dấu ; trước IIFE
         //  * 3. IIFE là hàm "private"
         //  * 4. Sử dụng IIFE khi nào  
         //  * 5. Các cách t ạo ra một IIFE

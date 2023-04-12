@@ -1,11 +1,12 @@
 // // Create async function
+
 // async function myAsyncFunc() {
 //   // Create new promise that rejects
 //   const myPromise = new Promise(( resolve , reject  ) => {
 //     // resolve('Promise resolve!')
 //     reject('Promise rejected!')
 //  })
-//    console.log(myPromise)
+//    console.log(myPromise)  // Kết quả trả ra 1 promise
 
 //   // Create try...catch statement
 
@@ -13,6 +14,7 @@
 //     // await myPromise.then(function(res) {   // SAI 
 //     //     console.log(`result: ${res}`)
 //     // })
+
 //     const message = await myPromise   // Nhận lại chính là tham số của phương thức resolve
 //     console.log(message)        
 

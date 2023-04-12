@@ -1,4 +1,5 @@
 console.log(declaration(1, 2))  
+
 //  console.log(expression(1, 2))   // Đây cũng là gọi hàm expression thì k thể nào gọi hàm trước khi  khai báo được
     // console.log(a)       // Đưa ra lỗi is not defined
 
@@ -21,5 +22,5 @@ console.log(declaration(1, 2))
     const b= ''
 
     if(!b) {
-        console.log("Những cái đưa ra giá trị false : 0 , false, null, undefined, NaN , ''" )
+        console.log("Những cái đưa ra giá trị false thy : 0 , false, null, undefined, NaN , ,/"" '' " )
     }

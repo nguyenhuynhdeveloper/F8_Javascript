@@ -11,56 +11,58 @@
 <body>
 
     <script>
+       //https://freetuts.net/hoc-javascript/danh-sach-ham-trong-javascript
+       myArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-        //https://freetuts.net/hoc-javascript/danh-sach-ham-trong-javascript
-        myArr1 = ["duy", "nga", "doc", "ton"]
-        myArr2 = ["thiên", "thượng ", "thiên", "hạ"]
+        myArr1 = ["a", "b", "c", "d"]
+        myArr2 = ["e", "f ", "g", "h"]
 
-        myArr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         //------- "Array".toString() : Hàm chuyển mảng thành chuỗi mỗi phần tử cách nhau bởi dấu ,
 
         const myStr = myArr.toString()
-        console.log(myStr)
+        console.log(myStr)  //0,1,2,3,4,5,6,7,8,9,10
 
         //------- "Array".join() : Hàm chuyển mảng -> String , có quy định ký tự phân cách 
-        const myJoin = myArr.join(" ")   // Mỗi phần tử cảu mảng cách nhau bởi khoảng trắng
-        const myJoin1 = myArr.join(" + ")
+        const myJoin = myArr.join(" ")  
+        const myJoin1 = myArr.join(" + ")  
 
-        console.log(myJoin)
-        console.log(myJoin1)
+        console.log(myJoin)   // 0 1 2 3 4 5 6 7 8 9 10  Mỗi phần tử của mảng cách nhau bởi khoảng trắng
+        console.log(myJoin1) //0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10
 
         //-----"Array".concat(....) : Nối 2 hay nhiều mảng với nhau. concat sẽ không thay đổi mảng hiện tại mà đưa ra 1 mảng mới 
         const takeArr = myArr.concat(myArr1, myArr2)
-        console.log(takeArr)
-        console.log(myArr)
+        console.log(takeArr)  // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'a', 'b', 'c', 'd', 'e', 'f ', 'g', 'h'] Mảng mới 
+        console.log(myArr)   // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  Mảng góc
 
 
-        //-------"Array".copyWithin(target, start, end) // copy lại 1 mảng từ phần tử số 0 tới hết . nhưng khi tới vị trí [ target là sẽ ghi đè phần tử [start end) của mảng cũ
+        //-------"Array".copyWithin(target, start, end) 
+        // copy lại 1 mảng từ phần tử số 0 tới hết . nhưng khi tới vị trí [ target là sẽ ghi đè phần tử [start end) của mảng cũ
         // Mảng cũ sau khi bị sao chép cũng bị thay đổi == mảng sao chép
         // Mảng hứng không được phép khai báo trước 
         // myCopyWithin =[0,1 , 2 , 3, 4, 5, 6, 7, 8, 9, 10 , 11, 12, 13, 14, 15] // FALSE
 
         const myCopyWithin = myArr.copyWithin()  // Nó sẽ copy từ phần tử 0 tới hết 
-        console.log(myCopyWithin)
+        console.log(myCopyWithin) //[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        console.log(myArr)    //[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         const myCopyWithin1 = myArr.copyWithin(2, 6, 8)  // sẽ ghi đè mảng mới tại vị trí số [5 , các phần từ vị trí [2 tới phần tử vị trí 6) của mảng cũ
-        console.log(myCopyWithin1)                         // Chỉ ghi đè duy nhất 1 lần 
-
-        console.log(myArr)  // Đã bị thay đổi 
+        console.log(myCopyWithin1)  //  [0, 1, 6, 7, 4, 5, 6, 7, 8, 9, 10] : Chỉ ghi đè duy nhất 1 lần 
+        console.log(myArr)  // [0, 1, 6, 7, 4, 5, 6, 7, 8, 9, 10]  Đã bị thay đổi 
 
         myArr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         const myCopyWithin2 = myArr1.copyWithin(-3, -9, -7)   // Khi ghi là số âm thì mảng sẽ đếm từ cuối mảng bắt đầu bằng 1
-        console.log(myCopyWithin2)
+        console.log(myCopyWithin2)  //[0, 1, 2, 3, 4, 5, 6, 7, 2, 3, 10]
 
         //----"Array".every(...) : Vòng lặp giúp kiểm tra tất cả các phần tử thoả mãn điều kiện thì trả true. Phải tất cả mới trả true
         //"array".every(function(currentValue, index, arr), thisValue)
 
         const myEvery = myArr.every((currentValue, index, originArr) => currentValue > 5)
-        console.log(myEvery)
+        console.log(myEvery)  //false
 
         //-----"Array".fill(...) : Thay đổi tất cả giá trị của tất cả các phần tử của mảng thành 1 giá trị mới đồng nhất 
-        //"array".fill(value, start, end)  : Hàm này sẽ trả về 1 mảng mới có tổng số phần tử bằng mảng cũ, mảng cũ cũng bị thay đổi 
+        //"array".fill(value, start, end)  : Hàm này sẽ trả về 1 mảng mới có tổng số phần tử bằng mảng cũ,
+        // mảng cũ cũng bị thay đổi 
 
         // value - giá trị tĩnh sẽ được thay thế cho các phần tử trong mảng.
         // start - vị trị bắt đầu thay thế trong mảng.
@@ -68,8 +70,8 @@
 
         myArr2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         const takeArrFill = myArr2.fill(10, 4, 8)   // Từ vị trí từ [4,8) sẽ nhận giá trị là 10
-        console.log(takeArrFill)
-        console.log(myArr2)  // Mảng cũ  bị thay đổi 
+        console.log(takeArrFill) // [0, 1, 2, 3, 10, 10, 10, 10, 8, 9, 10]
+        console.log(myArr2)  // [0, 1, 2, 3, 10, 10, 10, 10, 8, 9, 10]  Mảng cũ  bị thay đổi 
 
 
         //----"Array".find(...) // Trả về phần tử đầu tiên thoả mãn điều kiện kiểm tra
@@ -79,8 +81,8 @@
         // Hàm find sẽ không thay đổi mảng ban đầu.
         myArr3 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         const takeFind = myArr3.find((current , index, origin) => current>3)
-        console.log(takeFind)
-        console.log(myArr3)  // Mảng cũ không bị thay đổi 
+        console.log(takeFind)  //4
+        console.log(myArr3)  // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] Mảng cũ không bị thay đổi 
 
         //------ "Array".findIndex(...)  // Trả về chỉ mục phần tử đầu tiên thoả mãn 
         // Lăp qua các phần tử , khi gặp phần tử đầu tiên thoả mãn thì trả ra và bỏ qua tất cả các phần tử còn lại 
@@ -88,8 +90,8 @@
         // Hàm findIndex sẽ không thay đổi mảng ban đầu.
         myArr3 = [0, 1, 2, 2, 2, 7, 3, 7,4, 5, 6, 7, 8, 9, 10]
         const takeFindIndex = myArr3.findIndex((current , index, origin) => current>3)
-        console.log(takeFindIndex)
-        console.log(myArr3)
+        console.log(takeFindIndex)  //5  : là chỉ mục 
+        console.log(myArr3)  //[0, 1, 2, 2, 2, 7, 3, 7, 4, 5, 6, 7, 8, 9, 10]
 
         //--------"Array".indexOf(...) : Trả về chỉ mục của phần tử thoả mãn giá trị phần tử truyền vào
         //"array".indexOf(item, start) : Bắt đầu tìm kiếm từ phần tử thứ start gặp phần tử có giá trị item là trả ra chỉ mục của nó luôn
@@ -97,45 +99,49 @@
         // Vị trí các phần tử của mảng bắt đầu từ: 0, 1, 2 ..vv.  trả về -1 nếu không tìm thấy.
         myArr4 = [0, 1, 2, 2, 2, 7, 3, 7,4, 5, 6, 7, 8, 9, 10]
         const takeIndexOf = myArr4.indexOf(7, -5)  // Tìm phần tử có giá trị 7 bắt đầu từ phần tử -5
-        console.log(takeIndexOf)
+        console.log(takeIndexOf) //11
+        console.log(myArr4)  //[0, 1, 2, 2, 2, 7, 3, 7, 4, 5, 6, 7, 8, 9, 10]
 
         // Nếu bạn muốn tìm từ cuối mảng, sử dụng hàm lastIndexOf.
         // "array".lastIndexOf(item, start)  : start phải là số âm bắt đầu bằng -1
         // Việc tìm kiếm sẽ bắt đầu từ vị trí xác định, nếu không truyền vào thì mặc định sẽ tìm từ cuối mảng và kết thúc ở đầu mảng.
         
         const takeIndexOf1 = myArr4.lastIndexOf(4,-2)
-        console.log(takeIndexOf1)
+        console.log(takeIndexOf1)   //8
 
 
         // -----Array.isArray(...) : Trả về true/ false đối tượng đó có phải array hay không 
-        console.log(Array.isArray(myArr4))
+        console.log(Array.isArray(myArr4))  //true
 
         //-----"Array".reverse()  : Hàm sẽ đảo ngược lại toàn bộ mảng : cả mảng cũ và mảng mới 
         const takeReverse = myArr.reverse() 
-        console.log(takeReverse)
-        console.log(myArr)   // Mảng cũ cũng bị đảo ngược 
+        console.log(takeReverse)  //[10, 9, 8, 7, 6, 5, 4, 7, 6, 1, 0] 
+        console.log(myArr)   // [10, 9, 8, 7, 6, 5, 4, 7, 6, 1, 0]  Mảng cũ cũng bị đảo ngược 
 
         //------"Array".sort() : Dùng để sắp xếp 1 mảng theo thứ tự nào đó  và trả ra 1 mảng mới đã được sắp xếp . Thứ tự sắp xếp mặc định được tính là tăng dần 
         // Cả mảng cũ và mảng mới đều bị thay đôi    
         myArr4 = [0, 1, 2, 2, 2, 7, 3, 7,4, 5, 6, 7, 8, 9, 10]
 
         const takeSort = myArr4.sort()   // Sắp xếp theo thứ tự mã ASYN nên không chính xác với số
-        console.log(takeSort)   // Mảng mới được sắp xếp
-        console.log(myArr4)   // Mẳng cũ cũng bị thay đổi 
+        console.log(takeSort)   // [0, 1, 10, 2, 2, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9] Mảng mới được sắp xếp
+        console.log(myArr4)   //[0, 1, 10, 2, 2, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9]  Mảng cũ cũng bị thay đổi 
 
         // // Functionless
-        // array.sort()       
+        // array.sort()    
+
         // // Arrow function
         // array.sort((firstEl, secondEl) => { ... } )
+
         // // Inline compare function
         // array.sort(function compareFn(firstEl, secondEl) { ... })
+
         //Hai tham số firstEl và secondEl đại diện cho hai phần tử kề nhau trong mảng, và ta sẽ sử dụng nó để quyết định cách sắp xếp.
         // Nếu hàm callback trả về số lớn hơn 0 thì secondEl sẽ đứng trước firstEl.
         // Nếu hàm callback trả về số bé hơn hoặc bằng 0 thì thứ tự được giữ nguyên, tức là firstEl sẽ đứng trước secondEl.
         myArr5 = [0, 1, 2, 2, 2, 7, 3, 7,4, 5, 6, 7, 8, 9, 10]
-        const takeSort1 = myArr5.sort ((a, b) => a-b )  // Nếu số đứng trước lớn hơn số đứng sau thì sẽ bị đảo ngược vị trí 2 thằng
-        console.log(takeSort1)
-        console.log(myArr5)
+        const takeSort1 = myArr5.sort ((a, b) => a-b )  // Nếu số đứng trước lớn hơn số đứng sau thì sẽ bị đảo ngược vị trí 2 thằng --> Sắp xếp tăng dần
+        console.log(takeSort1)  //[0, 1, 2, 2, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9, 10]
+        console.log(myArr5)   //[0, 1, 2, 2, 2, 3, 4, 5, 6, 7, 7, 7, 8, 9, 10]  : Mảng cũ cũng bị thay đổi
 
         //"Array".valueOf() : Trả về giá trị mảng == Array - sẽ không làm thay đổi gì mảng . không khuyến khích nên gọi thẳng tên mảng
         console.log(myArr5)
@@ -144,12 +150,19 @@
 
 
 
+        // Push : Thêm 1 phần tử vào cuối mảng và trả ra chiều dài của mảng sau khi được push
 
+        const animals = ['pigs', 'goats', 'sheep'];
 
+const count = animals.push('cows');
+console.log(count);
+// Expected output: 4
+console.log(animals);
+// Expected output: Array ["pigs", "goats", "sheep", "cows"]
 
-
-
-
+animals.push('chickens', 'cats', 'dogs');
+console.log(animals);
+// Expected output: Array ["pigs", "goats", "sheep", "cows", "chickens", "cats", "dogs"]
 
 
 
