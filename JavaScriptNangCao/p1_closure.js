@@ -102,3 +102,6 @@ profileSetting.set('fullName', 'nguyễn huyền')
 
  // IIFE  khác anonoys function hàm không tên 
  // callback khác closure
+ // callback khác closure
+ // callback khác closure
+ // callback khác closure
