@@ -1,4 +1,5 @@
 /**
+ * https://www.youtube.com/watch?v=3MLhU1DrUxM&t=150s  
  * Hoisting : đưa lên trên kéo lên trên , Khai báo biến khai báo hàm được đưa lên trên ntn 
  * Đưa phần khai báo lên trên đầu phạm vi
  */
@@ -33,5 +34,10 @@ const timeOut = setTimeout(()=> {
 console.log("setTimeOut Đã chạy xong")
 }, 3000)
 
-timeOut()
-console.log("abs")
+// timeOut()
+
+// console.log("let const đưa vào vùng Temporal Deal Zone", a_let)  // cannot access 'a_let' before initialization
+// let a_let = 10
+
+// console.log("let const đưa vào vùng Temporal Deal Zone", a_aconst)  // cannot access 'a_aconst' before initialization
+// let a_const = 10

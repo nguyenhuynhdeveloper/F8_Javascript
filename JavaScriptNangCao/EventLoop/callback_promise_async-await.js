@@ -159,108 +159,108 @@
 // //-----------------------------------
 
 const getJson = async () => {
-   let giatri =[]
-  try {
-     let res = await axios.get('https://jsonplaceholder.typicode.com/posts');
-   //   console.log('RESS ', res)
-   //   console.log(res.data)
-     return 888      
-   //   return res.data  // cái return này sẽ được trả ra trước vì hàm lọt vào đây
-  } catch (error) {
-     console.log(error);
-  }
-  return 223
-}
-
-//!!!!!!!!!!!!!!!!! Đã async await rồi thì k then 
-//!!!!!!!!!!!!!!!!!  Các hàm then và await nó chỉ đợi cho ra kết quả thôi chứ nó không chặn các hàm đồng bộ đằng sau 
-//!!!!!!! Mấu chốt tư duy là các hàm hay các thao tác bất đồng bộ nào thì nên nhét vào trong then hoặc async await ---> chứ không phải chăm chăm tư duy đợi return trong hàm bất đồng bộ , vì nó vô dụng nó chỉ có tác dụng cho then , với await
-
-// // Sử dụng then 
-// const getData_Then = () => {
-//    getJson().then(res => {
-//       console.log("Giá trị của hàm bất đồng bộ được bọc trong then" ,res)
-//       return res
-//    })
-//    .then(res => console.log("first", res))  // .then vẫn trả về 1 Promise  return của then trước là tham số của then sau 
-//    console.log("first")
-// }
-// getData_Then()
-
-
-// Sử dụng async await 
-async function getData_await (action) {
+    let giatri =[]
    try {
-      const res = await getJson()     // Phải có hàm await để hàm bất đồng bộ này có thể chạy xong . nếu k có await thì nó sẽ trả về promise pending
-      console.log("Giá trị của hàm dù được viết trong async nhưng k viết await mà viết await cũng k có tác dụng  ",getJson())    // Cái này sẽ trả về promise có status là pending
-      console.log("Giá trị sau khi đã được await xong ",res)    // Cái này sẽ trả đúng  dữ liệu của res
-      return res     // Trả ra dữ liệu 
+      let res = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    //   console.log('RESS ', res)
+    //   console.log(res.data)
+      return 888      
+    //   return res.data  // cái return này sẽ được trả ra trước vì hàm lọt vào đây
+   } catch (error) {
+      console.log(error);
    }
-    catch (e) {
-      console.log(e)
-   }
-}
-getData_await()
-
-
-//// Tư duy sai Bất đồng bộ mà viết trong đồng bộ 
-// console.log("Giá trị của hàm " , getData_await())    //Cái này cũng trả ra 1 Promise{<pending>}  vì console.log là đồng bộ . còn getData() là Bất đồng bộ 
-// // console.log("Giá trị của hàm " , getData_await().then(res => res))  // False sai bản chất 
-
-
-// // Gán vào biến cục bộ rồi in cái biến cục bộ đó ra cũng chỉ nhận được 1 promise spending
-// var giatri
-// const dulieu = getJson().then((res) => {giatri = res 
-//    console.log("first", giatri)
-//    return giatri})
-
-// console.log("first", typeof dulieu)    // Cái này chỉ là 1 object dạng promise
-// console.log("first", dulieu)      // Promise spending  
-// console.log("first", giatri)     // underfine
-
-
-// //--- genarater : hàm có thể trì hoãn 
-// function* getData (action) {
-//   try {
-//      const json = yield getJson(); 
-//      console.log('YIELD ', json)
-//      console.log("b")
-     
-//   } catch (err) {
-//    console.log("Error" , err)
-//   }
-// }
-
-// getData()
-
-
-
-
-
-
-//// Test async await
-// export default function App() {
-// const getJson = async () => {
-//   try {
-//      let res = await axios.get('https://jsonplaceholder.typicode.com/posts');
-//      console.log('RESS ', res)
-//      return res.data
-//   } catch (error) {
-//      console.log(error);
-//   }
-// }
-
-
-// function* getData (action) {
-//   try {
-   
-//      const json = yield getJson(); 
-//      console.log('YIELD ', json)
-//      console.log("b")
-     
-//   } catch (e) {
-//   }
-// }
-
-// getData()
-// }
+   return 223
+ }
+ 
+ //!!!!!!!!!!!!!!!!! Đã async await rồi thì k then 
+ //!!!!!!!!!!!!!!!!!  Các hàm then và await nó chỉ đợi cho ra kết quả thôi chứ nó không chặn các hàm đồng bộ đằng sau 
+ //!!!!!!! Mấu chốt tư duy là các hàm hay các thao tác bất đồng bộ nào thì nên nhét vào trong then hoặc async await ---> chứ không phải chăm chăm tư duy đợi return trong hàm bất đồng bộ , vì nó vô dụng nó chỉ có tác dụng cho then , với await
+ 
+ // // Sử dụng then 
+ // const getData_Then = () => {
+ //    getJson().then(res => {
+ //       console.log("Giá trị của hàm bất đồng bộ được bọc trong then" ,res)
+ //       return res
+ //    })
+ //    .then(res => console.log("first", res))  // .then vẫn trả về 1 Promise  return của then trước là tham số của then sau 
+ //    console.log("first")
+ // }
+ // getData_Then()
+ 
+ 
+ // Sử dụng async await 
+ async function getData_await (action) {
+    try {
+       const res = await getJson()     // Phải có hàm await để hàm bất đồng bộ này có thể chạy xong . nếu k có await thì nó sẽ trả về promise pending
+       console.log("Giá trị của hàm dù được viết trong async nhưng k viết await mà viết await cũng k có tác dụng  ",getJson())    // Cái này sẽ trả về promise có status là pending
+       console.log("Giá trị sau khi đã được await xong ",res)    // Cái này sẽ trả đúng  dữ liệu của res
+       return res     // Trả ra dữ liệu 
+    }
+     catch (e) {
+       console.log(e)
+    }
+ }
+ getData_await()
+ 
+ 
+ //// Tư duy sai Bất đồng bộ mà viết trong đồng bộ 
+ // console.log("Giá trị của hàm " , getData_await())    //Cái này cũng trả ra 1 Promise{<pending>}  vì console.log là đồng bộ . còn getData() là Bất đồng bộ 
+ // // console.log("Giá trị của hàm " , getData_await().then(res => res))  // False sai bản chất 
+ 
+ 
+ // // Gán vào biến cục bộ rồi in cái biến cục bộ đó ra cũng chỉ nhận được 1 promise spending
+ // var giatri
+ // const dulieu = getJson().then((res) => {giatri = res 
+ //    console.log("first", giatri)
+ //    return giatri})
+ 
+ // console.log("first", typeof dulieu)    // Cái này chỉ là 1 object dạng promise
+ // console.log("first", dulieu)      // Promise spending  
+ // console.log("first", giatri)     // underfine
+ 
+ 
+ // //--- genarater : hàm có thể trì hoãn 
+ // function* getData (action) {
+ //   try {
+ //      const json = yield getJson(); 
+ //      console.log('YIELD ', json)
+ //      console.log("b")
+      
+ //   } catch (err) {
+ //    console.log("Error" , err)
+ //   }
+ // }
+ 
+ // getData()
+ 
+ 
+ 
+ 
+ 
+ 
+ //// Test async await
+ // export default function App() {
+ // const getJson = async () => {
+ //   try {
+ //      let res = await axios.get('https://jsonplaceholder.typicode.com/posts');
+ //      console.log('RESS ', res)
+ //      return res.data
+ //   } catch (error) {
+ //      console.log(error);
+ //   }
+ // }
+ 
+ 
+ // function* getData (action) {
+ //   try {
+    
+ //      const json = yield getJson(); 
+ //      console.log('YIELD ', json)
+ //      console.log("b")
+      
+ //   } catch (e) {
+ //   }
+ // }
+ 
+ // getData()
+ // }

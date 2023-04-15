@@ -1,3 +1,5 @@
+
+// Declaration Funcrion : Hàm có tên - được hoisting
 console.log(declaration(1, 2))  
 
 //  console.log(expression(1, 2))   // Đây cũng là gọi hàm expression thì k thể nào gọi hàm trước khi  khai báo được
@@ -8,7 +10,7 @@ console.log(declaration(1, 2))
         return a+b 
     }
 
-    // Expression function 
+    // Expression function : Hàm Không tên - Không được Hoisting 
 
     var expression = function autoLogin(a, b) {  // Xuất hiện toán tử gán -- có thể đặt tên OR không cần -- tên biến có thể gọi hàm 
         return a+b
@@ -22,7 +24,7 @@ console.log(declaration(1, 2))
     const b= ''
 
     if(!b) {
-        console.log("Những cái đưa ra giá trị false thy : 0 , false, null, undefined, NaN , ,/"" '' " )
+        console.log(` Những cái đưa ra giá trị false thy : 0 , false, null, undefined, NaN , ,"" '' ` )
     }
 
 

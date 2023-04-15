@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
 
-   
 
 // // BÀI TOÁN 1:
 
@@ -322,10 +311,3 @@ Connection: close
     // console.log("arrHanlde ",arrHanlde );
 
     console.log("", arrFieldData[label =="AudioInVolume"].value)
-
-
-
-    </script>
-    
-</body>
-</html>

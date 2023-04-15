@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <script>
         //Hàm chuyển từ milisecond sang giờ : phút : giây 
         // Lý thuyết: 1 mili giây = 0.001 giây -> 1,000 mili giây = 1 giây
         // Hàm 1: Chuyển từ 1,000 mili giây -> 00:00:01
@@ -55,8 +43,3 @@
             var a = hms.split(':');
             return (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
         }
-
-    </script>
-</body>
-
-</html>

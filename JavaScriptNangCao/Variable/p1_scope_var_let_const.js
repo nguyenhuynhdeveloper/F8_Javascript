@@ -35,6 +35,9 @@
 // var cho phép khai báo ghi đè 1 biến let thì không 
 
 //Global Scope : Phạm vi toàn cầu
+
+console.log("Gọi trước khai báo sau với var sẽ trả ra undefined",abc)
+
 var abc = 3
 var abc = 6   // Var được phép khai báo ghi đè lại biến
 console.log(abc)
@@ -184,11 +187,7 @@ console.log(increaseOutside())
         // //  const c = a || b || 100
         // //  console.log(" Toán tử 9 && 10 " ,c)   // Chỉ cần 1 toán tử là true thì sẽ nhận giá trị toán tử true đầu tiên tìm thấy 
 
-for (var i= 0 ; i< 3 ; i++){{
-    setTimeout(()=>{{
-        console.log(i)
-    }},1000)
-}}
+
 
 const a1= {name: "a"}
 const b1 = {name: "a"}

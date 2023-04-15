@@ -1,4 +1,5 @@
 //Closure : Tính bao đóng  : tính chất bao bọc bởi phạm vi của hàm 
+// https://www.youtube.com/watch?v=xtQtGKL0NCI&t=182s
 /**
  * #Closure : là 1 hàm có thể ghi nhớ nơi nó được tạo và truy cập được biến ở bên ngoài phạm vi của nó 
  *  ##Ứng dụng 
@@ -105,3 +106,5 @@ profileSetting.set('fullName', 'nguyễn huyền')
  // callback khác closure
  // callback khác closure
  // callback khác closure
+
+ //JavaScript Closures là tập hợp bao gồm một hàm và môi trường nơi hàm số đó được khai báo.

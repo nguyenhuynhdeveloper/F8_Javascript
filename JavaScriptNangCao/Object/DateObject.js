@@ -1,17 +1,4 @@
- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <script>
-
-        // // CÁCH CÁCH KHAI BÁO VÀ GÁN GIÁ TRỊ DATE OBJECT 
+ // // CÁCH CÁCH KHAI BÁO VÀ GÁN GIÁ TRỊ DATE OBJECT 
 
 
         // const time = new Date()   // Trả về ngày và giờ hiện tại // Đây chỉ ý nghĩa date == ngày giờ hiện tại
@@ -217,99 +204,83 @@
 
 
 
-var hamA = (a, b) => { return a+b }
+        var hamA = (a, b) => { return a+b }
 
-console.log("hàm a", hamA(5, 6))
-
-
-
-// class ClassA {
-//     age = 18
-
-//     run = (a , b) => { return a+b }
-
-//  }
-
-
-//  const intanceA = ClassA()
-
-// ClassA.age;
-// console.log(intanceA.age)
-
-// // Tạo các thuộc tính (property)
-// function Dog(name, color, type) {
-//     this.name = name;
-//     this.color = color;
-//     this.type = type
-// }
-// // Thêm vào các phương thức (method)
-// Dog.prototype.bark = function () {
-//     console.log(`${this.name} barks: Go Go Go`)
-// }
-
-// // Khởi tạo 1 instance object
-// let milu = new Dog('Milu','Black','Becgie');
-
-// milu.bark() // Milu barks: Go Go Go
-// milu.name;
-// console.log(milu.name)
-
-
-
-class Dog {
-    // Tạo các thuộc tính (property)
-    constructor(name, color, type) {
-        this.name = name;
-        this.color = color;
-        this.type = type
-    }
-
-    // Thêm vào các phương thức (method)
-    bark = () =>{
-        console.log(`${this.name} barks: Go Go Go`)
-    }
-}
-
-let milu = new Dog('Milu', 'Black', 'Becgie');
-
-milu.bark() // Milu barks: Go Go Go
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </script>
-</body>
-
-</html> 
-
+        console.log("hàm a", hamA(5, 6))
+        
+        
+        
+        // class ClassA {
+        //     age = 18
+        
+        //     run = (a , b) => { return a+b }
+        
+        //  }
+        
+        
+        //  const intanceA = ClassA()
+        
+        // ClassA.age;
+        // console.log(intanceA.age)
+        
+        // // Tạo các thuộc tính (property)
+        // function Dog(name, color, type) {
+        //     this.name = name;
+        //     this.color = color;
+        //     this.type = type
+        // }
+        // // Thêm vào các phương thức (method)
+        // Dog.prototype.bark = function () {
+        //     console.log(`${this.name} barks: Go Go Go`)
+        // }
+        
+        // // Khởi tạo 1 instance object
+        // let milu = new Dog('Milu','Black','Becgie');
+        
+        // milu.bark() // Milu barks: Go Go Go
+        // milu.name;
+        // console.log(milu.name)
+        
+        
+        
+        class Dog {
+            // Tạo các thuộc tính (property)
+            constructor(name, color, type) {
+                this.name = name;
+                this.color = color;
+                this.type = type
+            }
+        
+            // Thêm vào các phương thức (method)
+            bark = () =>{
+                console.log(`${this.name} barks: Go Go Go`)
+            }
+        }
+        
+        let milu = new Dog('Milu', 'Black', 'Becgie');
+        
+        milu.bark() // Milu barks: Go Go Go
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
